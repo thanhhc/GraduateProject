@@ -1,0 +1,587 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CRPDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="256" Nullable="false" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="200" />
+    <Property Name="IsProviderUntil" Type="datetime" />
+    <Property Name="AvatarURL" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="BookingReceipts">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RentalPrice" Type="float" Nullable="false" />
+    <Property Name="Deposit" Type="float" Nullable="false" />
+    <Property Name="BookingFee" Type="float" Nullable="false" />
+    <Property Name="Distance" Type="int" />
+    <Property Name="Star" Type="int" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="200" />
+    <Property Name="BookingTime" Type="datetime" Nullable="false" />
+    <Property Name="StartTime" Type="datetime" Nullable="false" />
+    <Property Name="EndTime" Type="datetime" Nullable="false" />
+    <Property Name="GarageID" Type="int" Nullable="false" />
+    <Property Name="GarageName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="GarageAddress" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="GaragePhone" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="GarageEmail" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="VehicleID" Type="int" Nullable="false" />
+    <Property Name="LicenseNumber" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="VehicleName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="TransmissionDetail" Type="nvarchar" MaxLength="200" />
+    <Property Name="Engine" Type="nvarchar" MaxLength="200" />
+    <Property Name="Color" Type="int" Nullable="false" />
+    <Property Name="IsCanceled" Type="bit" Nullable="false" />
+    <Property Name="IsPending" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Garages">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OwnerID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="LocationID" Type="int" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="256" Nullable="false" />
+    <Property Name="Phone1" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Phone2" Type="varchar" MaxLength="50" />
+    <Property Name="NumOfComment" Type="int" Nullable="false" />
+    <Property Name="Star" Type="decimal" Precision="2" Scale="1" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Policy" Type="nvarchar" MaxLength="1000" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GarageWorkingTimes">
+    <Key>
+      <PropertyRef Name="GarageID" />
+      <PropertyRef Name="DayOfWeek" />
+    </Key>
+    <Property Name="GarageID" Type="int" Nullable="false" />
+    <Property Name="DayOfWeek" Type="int" Nullable="false" />
+    <Property Name="OpenTimeInMinute" Type="int" Nullable="false" />
+    <Property Name="CloseTimeInMinute" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Locations">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="NationID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ModelCategoryMappings">
+    <Key>
+      <PropertyRef Name="ModelID" />
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="ModelID" Type="int" Nullable="false" />
+    <Property Name="CategoryID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Nations">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PriceGroupItems">
+    <Key>
+      <PropertyRef Name="PriceGroupID" />
+      <PropertyRef Name="MaxTime" />
+    </Key>
+    <Property Name="PriceGroupID" Type="int" Nullable="false" />
+    <Property Name="MaxTime" Type="int" Nullable="false" />
+    <Property Name="Price" Type="float" Nullable="false" />
+    <Property Name="MaxDistance" Type="int" />
+  </EntityType>
+  <EntityType Name="PriceGroups">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DepositPercentage" Type="decimal" Precision="3" Scale="2" Nullable="false" />
+    <Property Name="PerDayPrice" Type="float" Nullable="false" />
+    <Property Name="MaxRentalPeriod" Type="int" />
+    <Property Name="MaxDistancePerDay" Type="int" />
+    <Property Name="ExtraChargePerKm" Type="float" />
+  </EntityType>
+  <EntityType Name="VehicleBrands">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VehicleGroups">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OwnerID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="WithDriverPriceGroupID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VehicleImages">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="VehicleID" Type="int" Nullable="false" />
+    <Property Name="URL" Type="varchar" MaxLength="200" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VehicleModels">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="BrandID" Type="int" Nullable="false" />
+    <Property Name="NumOfDoor" Type="int" Nullable="false" />
+    <Property Name="NumOfSeat" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Vehicles">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LicenseNumber" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="ModelID" Type="int" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="GarageID" Type="int" Nullable="false" />
+    <Property Name="VehicleGroupID" Type="int" />
+    <Property Name="TransmissionType" Type="int" Nullable="false" />
+    <Property Name="TransmissionDetail" Type="nvarchar" MaxLength="100" />
+    <Property Name="FuelType" Type="int" />
+    <Property Name="Engine" Type="nvarchar" MaxLength="100" />
+    <Property Name="Color" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+    <Property Name="NumOfComment" Type="int" Nullable="false" />
+    <Property Name="Star" Type="decimal" Precision="2" Scale="1" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_BookingReceipt_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="BookingReceipts" Type="Self.BookingReceipts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BookingReceipts">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BookingReceipt_Garage">
+    <End Role="Garages" Type="Self.Garages" Multiplicity="1" />
+    <End Role="BookingReceipts" Type="Self.BookingReceipts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Garages">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BookingReceipts">
+        <PropertyRef Name="GarageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BookingReceipt_Vehicle">
+    <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="1" />
+    <End Role="BookingReceipts" Type="Self.BookingReceipts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vehicles">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BookingReceipts">
+        <PropertyRef Name="VehicleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Car_CarGroup">
+    <End Role="VehicleGroups" Type="Self.VehicleGroups" Multiplicity="0..1" />
+    <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VehicleGroups">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Vehicles">
+        <PropertyRef Name="VehicleGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Car_Store">
+    <End Role="Garages" Type="Self.Garages" Multiplicity="1" />
+    <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Garages">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Vehicles">
+        <PropertyRef Name="GarageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CarModel_CarBrand">
+    <End Role="VehicleBrands" Type="Self.VehicleBrands" Multiplicity="1" />
+    <End Role="VehicleModels" Type="Self.VehicleModels" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VehicleBrands">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="VehicleModels">
+        <PropertyRef Name="BrandID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Garage_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="Garages" Type="Self.Garages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Garages">
+        <PropertyRef Name="OwnerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Garage_Location">
+    <End Role="Locations" Type="Self.Locations" Multiplicity="1" />
+    <End Role="Garages" Type="Self.Garages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Locations">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Garages">
+        <PropertyRef Name="LocationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GarageWorkingTime_Garage">
+    <End Role="Garages" Type="Self.Garages" Multiplicity="1" />
+    <End Role="GarageWorkingTimes" Type="Self.GarageWorkingTimes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Garages">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="GarageWorkingTimes">
+        <PropertyRef Name="GarageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Location_Nation">
+    <End Role="Nations" Type="Self.Nations" Multiplicity="1" />
+    <End Role="Locations" Type="Self.Locations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Nations">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Locations">
+        <PropertyRef Name="NationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ModelCategoryMapping_Category">
+    <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+    <End Role="ModelCategoryMappings" Type="Self.ModelCategoryMappings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ModelCategoryMappings">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ModelCategoryMapping_Model">
+    <End Role="VehicleModels" Type="Self.VehicleModels" Multiplicity="1" />
+    <End Role="ModelCategoryMappings" Type="Self.ModelCategoryMappings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VehicleModels">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ModelCategoryMappings">
+        <PropertyRef Name="ModelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PriceGroupItem_PriceGroup1">
+    <End Role="PriceGroups" Type="Self.PriceGroups" Multiplicity="1" />
+    <End Role="PriceGroupItems" Type="Self.PriceGroupItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PriceGroups">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PriceGroupItems">
+        <PropertyRef Name="PriceGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Vehicle_Model">
+    <End Role="VehicleModels" Type="Self.VehicleModels" Multiplicity="1" />
+    <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VehicleModels">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Vehicles">
+        <PropertyRef Name="ModelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VehicleGroup_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="VehicleGroups" Type="Self.VehicleGroups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="VehicleGroups">
+        <PropertyRef Name="OwnerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VehicleGroup_PriceGroup1">
+    <End Role="PriceGroups" Type="Self.PriceGroups" Multiplicity="1" />
+    <End Role="VehicleGroups" Type="Self.VehicleGroups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PriceGroups">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="VehicleGroups">
+        <PropertyRef Name="WithDriverPriceGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VehicleImage_Vehicle">
+    <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="1" />
+    <End Role="VehicleImages" Type="Self.VehicleImages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vehicles">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="VehicleImages">
+        <PropertyRef Name="VehicleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CRPDBModelStoreContainer">
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BookingReceipts" EntityType="Self.BookingReceipts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Garages" EntityType="Self.Garages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GarageWorkingTimes" EntityType="Self.GarageWorkingTimes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ModelCategoryMappings" EntityType="Self.ModelCategoryMappings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Nations" EntityType="Self.Nations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PriceGroupItems" EntityType="Self.PriceGroupItems" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PriceGroups" EntityType="Self.PriceGroups" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VehicleBrands" EntityType="Self.VehicleBrands" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VehicleGroups" EntityType="Self.VehicleGroups" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VehicleImages" EntityType="Self.VehicleImages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VehicleModels" EntityType="Self.VehicleModels" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Vehicles" EntityType="Self.Vehicles" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_BookingReceipt_AspNetUsers" Association="Self.FK_BookingReceipt_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="BookingReceipts" EntitySet="BookingReceipts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BookingReceipt_Garage" Association="Self.FK_BookingReceipt_Garage">
+      <End Role="Garages" EntitySet="Garages" />
+      <End Role="BookingReceipts" EntitySet="BookingReceipts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BookingReceipt_Vehicle" Association="Self.FK_BookingReceipt_Vehicle">
+      <End Role="Vehicles" EntitySet="Vehicles" />
+      <End Role="BookingReceipts" EntitySet="BookingReceipts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Car_CarGroup" Association="Self.FK_Car_CarGroup">
+      <End Role="VehicleGroups" EntitySet="VehicleGroups" />
+      <End Role="Vehicles" EntitySet="Vehicles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Car_Store" Association="Self.FK_Car_Store">
+      <End Role="Garages" EntitySet="Garages" />
+      <End Role="Vehicles" EntitySet="Vehicles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CarModel_CarBrand" Association="Self.FK_CarModel_CarBrand">
+      <End Role="VehicleBrands" EntitySet="VehicleBrands" />
+      <End Role="VehicleModels" EntitySet="VehicleModels" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Garage_AspNetUsers" Association="Self.FK_Garage_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Garages" EntitySet="Garages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Garage_Location" Association="Self.FK_Garage_Location">
+      <End Role="Locations" EntitySet="Locations" />
+      <End Role="Garages" EntitySet="Garages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GarageWorkingTime_Garage" Association="Self.FK_GarageWorkingTime_Garage">
+      <End Role="Garages" EntitySet="Garages" />
+      <End Role="GarageWorkingTimes" EntitySet="GarageWorkingTimes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Location_Nation" Association="Self.FK_Location_Nation">
+      <End Role="Nations" EntitySet="Nations" />
+      <End Role="Locations" EntitySet="Locations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ModelCategoryMapping_Category" Association="Self.FK_ModelCategoryMapping_Category">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="ModelCategoryMappings" EntitySet="ModelCategoryMappings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ModelCategoryMapping_Model" Association="Self.FK_ModelCategoryMapping_Model">
+      <End Role="VehicleModels" EntitySet="VehicleModels" />
+      <End Role="ModelCategoryMappings" EntitySet="ModelCategoryMappings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PriceGroupItem_PriceGroup1" Association="Self.FK_PriceGroupItem_PriceGroup1">
+      <End Role="PriceGroups" EntitySet="PriceGroups" />
+      <End Role="PriceGroupItems" EntitySet="PriceGroupItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Vehicle_Model" Association="Self.FK_Vehicle_Model">
+      <End Role="VehicleModels" EntitySet="VehicleModels" />
+      <End Role="Vehicles" EntitySet="Vehicles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VehicleGroup_AspNetUsers" Association="Self.FK_VehicleGroup_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="VehicleGroups" EntitySet="VehicleGroups" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VehicleGroup_PriceGroup1" Association="Self.FK_VehicleGroup_PriceGroup1">
+      <End Role="PriceGroups" EntitySet="PriceGroups" />
+      <End Role="VehicleGroups" EntitySet="VehicleGroups" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VehicleImage_Vehicle" Association="Self.FK_VehicleImage_Vehicle">
+      <End Role="Vehicles" EntitySet="Vehicles" />
+      <End Role="VehicleImages" EntitySet="VehicleImages" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

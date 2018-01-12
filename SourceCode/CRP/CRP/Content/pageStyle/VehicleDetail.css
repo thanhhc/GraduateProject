@@ -1,0 +1,171 @@
+﻿.edit-control {
+	display: none;
+}
+
+/* Color selector in create new vehicle */
+.color-selector {
+	display: inline-block;
+	margin: 2px;
+	position: relative;
+	width: 50px;
+}
+
+/* =========================================================== */
+/* Color selectors */
+
+.color-selector input {
+	opacity: 0;
+	position: absolute;
+}
+
+.color-selector label {
+	border: 3px solid #a8a8a8;
+	border-radius: 10px;
+	cursor: pointer;
+	display: block;
+	padding-top: calc(100% - 6px);
+	position: relative;
+}
+
+.color-selector label::after {
+	display: inline-block;
+	font-size: 30px;
+	left: 17%;
+	position: absolute;
+	top: 0;
+}
+
+.color-selector input[type="radio"]:checked + label::after {
+	color: #fff;
+	content: "\f00c";
+	font-family: "FontAwesome";
+}
+.color-selector input#colorWhite[type="radio"]:checked + label::after {
+	color: #000;
+}
+
+.color-selector.another-color input[type="radio"] + label::after {
+	color: #000;
+	content: "Màu Khác";
+	font-size: 14px;
+	left: 6%;
+	line-height: 100%;
+	text-align: center;
+	top: 15%;
+}
+.color-selector.another-color input[type="radio"]:checked + label::after {
+	content: "\f00c";
+	font-family: "FontAwesome";
+	font-size: 30px;
+	line-height: 140%;
+	left: 17%;
+	top: 0;
+}
+
+/* =========================================================== */
+/* Comment sections */
+.comment-item {
+	float: left;
+	position: relative;
+	margin-bottom: 2em;
+	width: 100%;
+}
+
+.comment-user {
+	color: #7F7F7F;
+	float: left;
+	position: relative;
+	text-align: center;
+	width: 20%;
+}
+.comment-user .img-circle {
+	width: 80px;
+}
+.comment-user .fa-user-circle {
+	color: #388E3C;
+	font-size: 80px;
+}
+
+.comment-content {
+	float: left;
+	position: relative;
+	min-height: 10em;
+	border-bottom: 1px solid #CCC;
+	width: 77%;
+}
+
+/* =========================================================== */
+/* Small Image display */
+
+#smallCarousel{
+	background-color: #BFBFBF;
+	position: relative;
+}
+
+#smallCarouselDisplay {
+	animation-duration: 0.5s;
+	background-position: center;
+    background-repeat: no-repeat;
+	background-size: cover;
+	cursor: pointer;
+	padding-top: 60%;
+	position: relative;
+	width: 100%;
+}
+
+.carousel-control.left, .carousel-control.right {
+	background-image: none;
+	transition-duration: 0.5s
+}
+
+/* Big carousel */
+#bigCarousel {
+	background-color: hsla(0, 0%, 0%, .9);
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	position: fixed;
+	transition-duration: 0.5s;
+	z-index: -1;
+	opacity: 0;
+}
+#bigCarousel.active {
+	opacity: 1;
+	z-index: 10000;
+}
+#bigCarousel .fa-times{
+	cursor: pointer;
+	font-size: 3em;
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	transition-duration: .5s;
+	z-index: 10;
+}
+#bigCarousel .fa-times:hover {
+	color: #CCC
+}
+
+#bigCarouselDisplay {
+	animation-duration: 0.5s;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	position: absolute;
+	top: 15%;
+	left: 15%;
+	height: 70%;
+	width: 70%;
+}
+
+/* =========================================================== */
+/* Create new booking modal */
+.new-booking-form {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	font-size: 1.3em;
+	padding: 1.5em;
+	width: 100%;
+}

@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Xác nhận email";
+}
+
+<div style="color: white; text-align: center; margin: 10em 5em; border: 1px solid white; padding: 2em; background-color: hsla(122,43%,20%,.9); font-size:1.5em;">
+	Xác nhận email thành công. Vui lòng ấn vào @Html.ActionLink("đây", "Index", "Home", null, new { id = "loginLink" }) để quay trở về trang chủ.
+</div>
+
+@section PageStyle {
+	<style>
+		body{
+			background-attachment: fixed;
+			background-image: url('/Content/img/backgrounds/1.jpg');
+			background-position: right top;
+			background-size: cover;
+			background-repeat: no-repeat;
+		}
+	</style>
+}

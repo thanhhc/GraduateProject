@@ -1,0 +1,200 @@
+﻿@using System.Collections.Generic;
+@using CRP.Models
+@using CRP.Models.Entities
+@using CRP.Models.ViewModels
+
+@model CRP.Models.ViewModels.FilterByGarageView
+
+@{
+	ViewBag.Title = "Vehicle Management";
+	Layout = "~/Views/Shared/_ManagementLayout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-md-10"><h2>Quản lý xe</h2></div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox ibox-content float-e-margins">
+		<div class="row">
+			<div class="pull-left m-l m-b">
+				<label class="form-control-static">Garage</label>
+			</div>
+			<div class="pull-left m-l m-b">
+				@Html.DropDownListFor(q => q.garageID, this.Model.listGarage, new { @class = "form-control", @id = "garageID" })
+			</div>
+			<div class="pull-right m-r m-b">
+				<div class="btn-group">
+					<div class="btn-group">
+						<button id="commonActionBtn" data-toggle="dropdown" class="btn btn-success btn-block dropdown-toggle" aria-expanded="false" disabled>
+							<i class="fa fa-gear"></i> Thao tác chung <i class="caret"></i>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a data-toggle="modal" data-target="#changeGroup">Chuyển xe đến nhóm giá</a></li>
+							<li><a data-toggle="modal" data-target="#changeGarage">Chuyển xe đến garage</a></li>
+						</ul>
+					</div>
+					<a id="add-car" class="btn btn-primary" data-toggle="modal" data-target="#customModal" data-action="createVehicle"><i class="fa fa-plus"></i> Thêm xe mới</a>
+				</div>
+			</div>
+		</div>
+		<table id="vehicleTable" class="table table-striped table-bordered table-hover" width="100%"></table>
+	</div>
+</div>
+
+<div class="modal fade" id="customModal" role="dialog"></div>
+
+<div id="changeGarage" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Di chuyển xe đến một garage</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-3 text-right">
+						<label>Tôi muốn chuyển xe</label>
+					</div>
+					<div id="list-car-name" class="col-md-3">
+					</div>
+
+					<div class="col-md-2">
+						<label>đến garage</label>
+					</div>
+					<div class="col-md-4">
+						<select class="form-control" id="drpGarage"></select>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+				<button id="btnChangeGarage" class="btn btn-primary" type="button">Đồng ý</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="changeGroup" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Đổi xe đến một nhóm giá</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-3 text-right">
+						<label>Tôi muốn chuyển xe</label>
+					</div>
+					<div id="list-car-name-group" class="col-md-3">
+					</div>
+
+					<div class="col-md-2">
+						<label>đến nhóm giá</label>
+					</div>
+					<div class="col-md-4">
+						<select class="form-control" id="drpGroup"></select>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+				<button id="btnChangeGroup" class="btn btn-primary" type="button">Đồng ý</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+@{ BundleTable.Bundles.Add(new StyleBundle("~/Styles/VehicleManagement")
+	 .Include("~/Content/awesome-bootstrap-checkbox.css",
+			"~/Content/DataTables/css/dataTables.bootstrap.css",
+			"~/Content/DataTables/css/select.bootstrap.min.css",
+			"~/Scripts/dropzone/dropzone.css",
+			"~/Scripts/dropzone/basic.css",
+			"~/Content/NoUISlider/nouislider.css",
+			"~/Content/NoUISlider/nouislider.pips.css",
+			"~/Content/NoUISlider/nouislider.tooltips.css",
+			"~/Content/select2/select2.css"));
+}
+@section Styles {
+	@Styles.Render("~/Styles/VehicleManagement")
+}
+@section PageStyle {
+	@Styles.Render("~/Content/pageStyle/vehicleManagement.css")
+}
+
+@{ BundleTable.Bundles.Add(new ScriptBundle("~/Scripts/VehicleManagement")
+	.Include("~/Scripts/DataTables/jquery.dataTables.js",
+			"~/Scripts/DataTables/dataTables.bootstrap.js",
+			"~/Scripts/DataTables/dataTables.select.min.js",
+			"~/Scripts/dropzone/dropzone.js",
+			"~/Scripts/select2/select2.full.js",
+			"~/Scripts/utils/generateUIElements.js",
+			"~/Scripts/utils/customModals.js",
+			"~/Scripts/pageScript/vehicleManagement.js"));
+}
+@section Scripts {
+	<script type="text/javascript">
+		const queryApiUrl = '@Url.RouteUrl("GetVehicleListAPI", new { controller = "VehicleManagement" })';
+
+		const MIN_YEAR = @Constants.MIN_YEAR
+			, MAX_YEAR = new Date().getFullYear();
+	</script>
+	@Scripts.Render("~/bundles/jqueryval")
+	@Scripts.Render("~/Scripts/VehicleManagement")
+}
+
+<template id="garageOptions">
+	<option></option>
+	@foreach (SelectListItem entry in Model.listGarage)
+	{
+		<option value="@entry.Value">@entry.Text</option>
+	}
+</template>
+
+<template id="groupOptions">
+	<option></option>
+	@foreach (SelectListItem entry in Model.GroupList)
+	{
+		<option value="@entry.Value">@entry.Text</option>
+	}
+</template>
+
+<template id="modelOptions">
+	<option></option>
+	@foreach (VehicleBrand brand in Model.BrandList)
+	{
+		<option></option>
+		<optgroup label="@brand.Name">
+			@foreach (VehicleModel entry in brand.VehicleModels)
+			{
+			<option value="@(entry.ID)">@(brand.Name)&nbsp;@entry.Name</option>
+			}
+		</optgroup>
+	}
+	<option value="0">--Dòng xe chưa được liệt kê--</option>
+</template>
+
+<template id="fuelOptions">
+	<option></option>
+	@foreach (KeyValuePair<int, string> entry in Constants.FUEL_TYPE)
+	{
+		<option value="@entry.Key">@entry.Value</option>
+	}
+</template>
+
+<template id="colorOptions">
+	@for (var i = 1; i < Constants.COLOR.Count(); i++)
+	{
+		<div class="color-selector">
+			<input id="color@(Constants.COLOR[i])" name="Color" value="@i" type="radio">
+			<label for="color@(Constants.COLOR[i])" style="background-color: @Constants.COLOR[i];"></label>
+		</div>
+	}
+	<div class="color-selector another-color">
+		<input id="color0" name="Color" value="0" type="radio" required>
+		<label for="color0"></label>
+	</div>
+</template>

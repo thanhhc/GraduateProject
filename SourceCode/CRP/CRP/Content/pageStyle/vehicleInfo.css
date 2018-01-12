@@ -1,0 +1,179 @@
+body{
+	position: relative;
+}
+
+.custom-page-wrapper {
+	background-color: white;
+}
+
+/* =========================================================== */
+/* Navbar */
+
+#infoNavBar {
+	background-color: #484848;
+	border-bottom: 0 !important;
+	opacity: 1;
+	transition-duration: 0.5s;
+}
+#infoNavBar .active > a, #infoNavBar .active > a:hover, #infoNavBar .active > a:focus{
+	background-color: #484848;
+}
+
+#infoNavBar .active {
+	border-bottom-color: #4CAF50;
+}
+
+.hidden-info-nav {
+	opacity: 0!important;
+	z-index: -50;
+}
+
+/* =========================================================== */
+/* Image section */
+
+#vehiclePrimaryImage {
+	background-position: center center;
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	height: 70vh;
+	min-height: 500px;
+	width: 100%;
+}
+
+#vehicleCarousel {
+	background-color: hsla(0, 0%, 0%, .9);
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	position: fixed;
+	transition-duration: 0.5s;
+	z-index: -1;
+	opacity: 0;
+}
+#vehicleCarousel.active {
+	opacity: 1;
+	z-index: 10000;
+}
+
+#carouselDisplay {
+	animation-duration: 0.5s;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	position: absolute;
+	top: 15%;
+	left: 15%;
+	height: 70%;
+	width: 70%;
+}
+
+.carousel-control.left, .carousel-control.right {
+	background-image: none;
+	transition-duration: 0.5s
+}
+
+#vehicleCarousel .fa-times{
+	cursor: pointer;
+	font-size: 3em;
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	transition-duration: .5s;
+	z-index: 10;
+}
+#vehicleCarousel .fa-times:hover {
+	color: #CCC
+}
+
+/* =========================================================== */
+/* Info sections */
+
+#vehicleHeaderInfo {
+	background-color: #388E3C;
+	color: white;
+	padding: 0 2em 1em;
+	position: absolute;
+	overflow: auto;
+	top: -50px;
+}
+#vehicleHeaderInfo .fa{
+	color: yellow;
+}
+
+.info-section{
+}
+
+#calenderSection{
+	height: 1000px;
+}
+
+.modal-body label {
+	margin-top: 1em;
+}
+.modal-body label:first-child{
+	margin-top: 0;
+}
+
+/* =========================================================== */
+/* Comment sections */
+.comment-item {
+	float: left;
+	position: relative;
+	margin-bottom: 2em;
+	width: 100%;
+}
+
+.comment-user {
+	color: #7F7F7F;
+	float: left;
+	position: relative;
+	text-align: center;
+	width: 30%;
+}
+.comment-user .img-circle {
+	width: 80px;
+}
+.comment-user .fa-user-circle {
+	color: #388E3C;
+	font-size: 80px;
+}
+
+.comment-content {
+	float: left;
+	position: relative;
+	min-height: 10em;
+	border-bottom: 1px solid #CCC;
+	width: 67%;
+}
+
+/* =========================================================== */
+/* Booking sections */
+
+#bookingSection{
+	font-size: 1.1em;
+	background-color: white;
+	position: relative;
+	display: table;
+	top: -50px;
+	width: 23em;
+	z-index: 2030;
+}
+#bookingSection hr{
+	margin: 10px 0;
+}
+
+#rentalTypePrice{
+	background-color: #388E3C;
+	color: white;
+	display: flex;
+    justify-content:center;
+    flex-direction:column;
+	font-size: 2em;
+	height: 50px;
+}
+
+.form-control[readonly] {
+	background-color: white;
+}

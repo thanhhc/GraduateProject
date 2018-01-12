@@ -1,0 +1,261 @@
+﻿@using CRP.Models
+@using CRP.Models.Entities
+@using CRP.Models.ViewModels
+
+@model SearchPageViewModel
+
+@{
+	ViewBag.Title = "Tìm xe";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper-content row">
+	<!-- header filter -->
+	<div class="col-md-offset-1 col-md-10 white-bg" id="headerFilters">
+		<div class="row">
+			<span class="col-xs-4" style="padding-left: 60px;" >Địa điểm</span>
+			<span class="col-xs-4" style="padding-left: 60px;">Thời gian đi</span>
+			<span class="col-xs-4" style="padding-left: 60px;">Thời gian về</span>
+		</div>
+		<div class="row">
+			<!-- Location -->
+			<div class="col-xs-4">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+					<select id="locationFilter" class="form-control" style="width: 100%;" >
+						<option></option>
+						@foreach (Location entry in Model.LocationList)
+						{
+							<option value="@entry.ID">@entry.Name</option>
+						}
+					</select>
+				</div>
+			</div>
+			<!-- Time -->
+			<div class="col-xs-8">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					<input type="text" id="startTimeFilter" class="form-control" readonly/>
+					<span class="input-group-addon"><i class="fa fa-arrow-right"></i></span>
+					<input type="text" id="endTimeFilter" class="form-control" readonly/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- side filter -->
+	<div class="animated fadeInLeft col-md-offset-1 col-md-3 white-bg" style="padding: 0;">
+		<div id="sideFilters">
+			<button id="filterResetter" class="btn btn-primary btn-block" style="margin-bottom: 1em;">Xóa bộ lọc</button>
+			<!-- NumOfSeat -->
+			<div class="row">
+				<label class="col-xs-12 filter-label">Số chỗ ngồi</label>
+				@foreach (int entry in Model.NumOfSeatList)
+				{
+					<div class="col-xs-6" id="seatFilter">
+						<div class="checkbox checkbox-inline checkbox-primary">
+							<input value="@entry" id="numOfSeat@(entry)" type="checkbox" >
+							<label for="numOfSeat@(entry)">@(entry) chỗ</label>
+						</div>
+					</div>
+				}
+			</div>
+			<hr>
+			<!-- Price -->
+			<div class="row">
+				<label class="col-xs-12">Mức giá</label>
+				<div id="minPriceDisplay" class="col-xs-6" style="padding-left: 1.5em; font-size: 1.2em"></div>
+				<div id="maxPriceDisplay" class="col-xs-6 text-right" style="padding-right: 1.5em; font-size: 1.2em"></div>
+				<div class="col-xs-12" style="position: relative; padding: 1em 3em 2em" >
+					<div id="priceFilter"></div>
+				</div>
+			</div>
+			<hr>
+			<!-- Sorting -->
+			<div class="row">
+				<label class="col-xs-12">Sắp xếp theo</label>
+				<div class="col-xs-12">
+					<select id="sorter" class="form-control" style="width: 100%;">
+						@foreach(Constants.SortingOption entry in Constants.ALLOWED_SORTING_PROPS_IN_SEARCH_PAGE){
+							<option value="@entry.Name" data-is-descending="@entry.IsDescending">@entry.Description</option>
+						}
+					</select>
+				</div>
+			</div>
+		</div>
+		<!-- Additional filters -->
+		<div class="panel panel-default" style="margin: 1em 0 0;border: none;">
+			<a data-toggle="collapse" href="#additionalFilters" class="btn btn-primary btn-block" style="border-radius: 0;">
+				Lọc chi tiết hơn về xe <i class="fa fa-angle-double-down"></i>
+			</a>
+			<div id="additionalFilters" class="panel-collapse collapse">
+				<div class="panel-body">
+					<!-- Model -->
+					<div class="form-group row">
+						<label class="col-xs-12">Dòng xe</label>
+						<div class="col-xs-12">
+							<select id="modelFilter" class="form-control" style="width: 100%;" multiple>
+								@foreach (VehicleBrand brand in Model.BrandList)
+								{
+									<option data-lvl="0" value="@(brand.ID)">b@(brand.Name)</option>
+									foreach (VehicleModel entry in brand.VehicleModels)
+									{
+										<option data-lvl="1" data-brand="@brand.ID" value="@(entry.ID)">m@(brand.Name)&nbsp;@entry.Name</option>
+									}
+								}
+							</select>
+						</div>
+					</div>
+					<hr>
+					<!-- Year -->
+					<div class="form-group row">
+						<label class="col-xs-12">Năm sản xuất</label>
+						<div id="minYearDisplay" class="col-xs-6" style="padding-left: 1.5em; font-size: 1.2em"></div>
+						<div id="maxYearDisplay" class="col-xs-6 text-right" style="padding-right: 1.5em; font-size: 1.2em"></div>
+						<div class="col-xs-12" style="position: relative; padding: 1em 3em"><div id="yearFilter"></div></div>
+					</div>
+					<hr>
+					<!-- Transmission -->
+					<div id="transmissionFilter" class="form-group row">
+						<label class="col-xs-12">Hộp số</label>
+						@foreach (KeyValuePair<int, string> entry in Constants.TRANSMISSION_TYPE)
+						{
+							<div class="col-xs-6">
+								<div class="checkbox checkbox-inline checkbox-primary">
+									<input value="@entry.Key" id="transmission@(entry.Value)" type="checkbox" >
+									<label for="transmission@(entry.Value)">@entry.Value</label>
+								</div>
+							</div>
+						}
+					</div>
+					<hr>
+					<!-- Fuel -->
+					<div class="form-group row">
+						<label class="col-xs-12">Loại nhiên liệu</label>
+						<div class="col-xs-12">
+							<select id="fuelFilter" class="form-control" style="width: 100%;"  multiple>
+								@foreach(KeyValuePair<int, string> entry in Constants.FUEL_TYPE){
+									<option value="@entry.Key">@entry.Value</option>
+								}
+							</select>
+						</div>
+					</div>
+					<hr>
+					<!-- Category -->
+					<div class="form-group row" >
+						<label class="col-xs-12">Loại xe</label>
+						<div class="col-xs-10">
+							<select id="categoryFilter" class="form-control" style="width: 100%;"  multiple>
+								@foreach (Category entry in Model.CategoryList)
+								{
+									<option value="@entry.ID">@entry.Name</option>
+								}
+							</select>
+						</div>
+					</div>
+					<hr>
+					<!-- Color -->
+					<div class="form-group row" id="colorFilter">
+						<label class="col-xs-12 filter-label">Màu sắc</label>
+						<div class="col-xs-12" >
+							@for(int i = 1; i < Constants.COLOR.Count(); i++)
+							{
+								<div class="color-selector" >
+									<input id="color@(Constants.COLOR[i])" value="@i" type="checkbox" >
+									<label for="color@(Constants.COLOR[i])" style="background-color: @Constants.COLOR[i];"></label>
+								</div>
+							}
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!-- Rating filters -->
+		<div class="panel panel-default" style="margin: 0;border: none;">
+			<a data-toggle="collapse" href="#ratingFilters" class="btn btn-primary btn-block" style="border-radius: 0;">
+				Lọc theo đánh giá <i class="fa fa-angle-double-down"></i>
+			</a>
+			<div id="ratingFilters" class="panel-collapse collapse">
+				<div class="panel-body">
+					<!-- VehicleRating -->
+					<div class="form-group row">
+						<label class="col-xs-12" for="vehicleRatingFilter">Đánh giá xe</label>
+						<div class="col-xs-12">
+							<select id="vehicleRatingFilter" style="width: 100%;" >
+								<option></option>
+								<option value="4"></option>
+								<option value="3"></option>
+								<option value="2"></option>
+							</select>
+						</div>
+					</div>
+					<hr>
+					<!-- GarageRating -->
+					<div class="form-group row">
+						<label class="col-xs-12">Đánh giá cửa hàng xe</label>
+						<div class="col-xs-12">
+							<select id="garageRatingFilter" style="width: 100%;" >
+								<option></option>
+								<option value="4"></option>
+								<option value="3"></option>
+								<option value="2"></option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- results -->
+	<div class="animated fadeInRight col-md-7" id="resultContainer">
+		<div class="ibox" style="padding-top: 1em;">
+			<div id="searchResultGrid"></div>
+			<div id="recordInfo" style="margin-bottom: 1em;"></div>
+			<div class="text-center">
+				<ul id="paginatior" class="pagination"></ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+@{ BundleTable.Bundles.Add(new StyleBundle("~/Styles/Search")
+	 .Include("~/Content/awesome-bootstrap-checkbox.css",
+		 "~/Content/bootstrap-datetimepicker/bootstrap-datetimepicker.css",
+		 "~/Content/NoUISlider/nouislider.css",
+		 "~/Content/NoUISlider/nouislider.pips.css",
+		 "~/Content/NoUISlider/nouislider.tooltips.css",
+		 "~/Content/select2/select2.css"));
+}
+@section Styles {
+	@Styles.Render("~/Styles/Search")
+}
+@section PageStyle {
+	@Styles.Render("~/Content/pageStyle/search.css")
+}
+
+@{ BundleTable.Bundles.Add(new ScriptBundle("~/Scripts/Search")
+	.Include(
+		"~/Scripts/bootstrap-datetimepicker/bootstrap-datetimepicker.js",
+		"~/Scripts/NoUISlider/nouislider.js",
+		"~/Scripts/select2/select2.full.js",
+		"~/Scripts/twbsPagination/jquery.twbsPagination.js",
+		"~/Scripts/utils/generateUIElements.js",
+		"~/Scripts/pageScript/search.js"));
+}
+@section Scripts {
+	<script type="text/javascript">
+		const NUM_RECORD_PER_PAGE = @Constants.NUM_OF_SEARCH_RESULT_PER_PAGE
+			, SOONEST_POSSIBLE_BOOKING_START_TIME_FROM_NOW_IN_HOUR = @Constants.SOONEST_POSSIBLE_BOOKING_START_TIME_FROM_NOW_IN_HOUR
+			, SOONEST_POSSIBLE_BOOKING_END_TIME_FROM_NOW_IN_HOUR = @Constants.SOONEST_POSSIBLE_BOOKING_END_TIME_FROM_NOW_IN_HOUR
+			, LATEST_POSSIBLE_BOOKING_START_TIME_FROM_NOW_IN_DAY = @Constants.LATEST_POSSIBLE_BOOKING_START_TIME_FROM_NOW_IN_DAY
+			, QUERY_API_URL = '@Url.RouteUrl("SearchVehiclesAPI", new { controller = "Home" })'
+			, VEHICLE_INFO_URL = '/vehicleInfo'
+			, YEAR_SLIDER_MAX = @Model.MaxYear
+			, YEAR_SLIDER_MIN = @Model.MinYear
+			, PRICE_SLIDER_MAX = @Model.MaxPrice
+			, PRICE_SLIDER_MIN = @Model.MinPrice
+			, PRICE_SLIDER_MAX_UNIT = '@Model.MaxPriceUnit'
+			, PRICE_SLIDER_MIN_UNIT = '@Model.MinPriceUnit';
+	</script>
+	@Scripts.Render("~/Scripts/Search")
+}

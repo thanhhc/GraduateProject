@@ -1,0 +1,164 @@
+﻿@using CRP.Models.ViewModels
+@model ProviderReportViewModel
+@{
+	ViewBag.Title = "Quản lý chung - CRP";
+	Layout = "~/Views/Shared/_ManagementLayout.cshtml";
+}
+<div class="wrapper wrapper-content">
+	<div class="row">
+		<div class="col-lg-8">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="ibox float-e-margins">
+						<div class="ibox-title">
+							<h5>Lượt đặt xe thành công trong tháng</h5>
+						</div>
+						<div class="ibox-content">
+							<h1 class="no-margins">@Model.NumOfBookingSuccessfulInThisMonth <small>lượt</small></h1>
+							<small>Trên tổng số @Model.NumOfBookingInThisMonth lượt</small>
+							
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="ibox float-e-margins">
+						<div class="ibox-title">
+							<h5>Lợi nhuận tháng hiện tại</h5>
+						</div>
+						<div class="ibox-content">
+							<h1 class="no-margins">@Model.Profit.ToString("#,##0")<small> VNĐ</small></h1>
+						</div>
+					</div>
+				</div>
+
+			</div>
+	
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="ibox">
+						<div id="chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+					</div>
+					
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="ibox float-e-margins">
+						<div class="ibox-title">
+							<h5>Tổng số garage</h5>
+						</div>
+						<div class="ibox-content">
+							<h1 class="no-margins">@Model.NumOfGarage <small>garage</small></h1>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="ibox float-e-margins">
+						<div class="ibox-title">
+							<h5>Tổng số xe</h5>
+						</div>
+						<div class="ibox-content">
+							<h1 class="no-margins">@Model.NumOfVehicle <small>xe</small></h1>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+
+		</div>
+		<div class="col-lg-4">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<h5>Nhận xét và đánh giá mới</h5>
+					<div class="ibox-tools">
+						<span class="label label-success pull-right">Mới nhất</span>
+					</div>
+				</div>
+				<div class="ibox-content" style="height: 50em;overflow-y: auto;">
+					<div class="feed-activity-list">
+						@if(Model.Comment.Any()){
+							foreach (var item in Model.Comment)
+							{
+								<div class="feed-element" style="border-bottom: 1px solid #CCC; display: flex;">
+									<div style="width: 40px;margin: 0 1em;">
+										@if(@item.UserAvatarUrl == null){
+											<i class="fa fa-user-circle" style="font-size: 38px;" ></i>
+										} else {
+											<img src="@item.UserAvatarUrl" alt="Error" class="img-circle">
+										}
+									</div>
+									<div>
+										<strong>@item.UserName</strong>
+										@if(item.VehicleID != null)
+										{
+											<span>đã đánh giá xe <a href="/management/VehicleManagement/@item.VehicleID">@item.VehicleName</a></span>
+										}
+										<br>
+										<div>
+											<small class="text-navy">
+												@{ for (int i = 0; i < item.Star; i++)
+													{
+														<i class="fa fa-star"></i>
+													}
+												}
+											</small>
+										</div>
+
+									</div>
+								</div>
+							}
+						} else {
+							<div style="text-align: center;font-size: 1.5em;font-weight: bold;">Bạn hiện tại chưa có nhận xét nào.</div>
+						}
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</div>
+@{ BundleTable.Bundles.Add(new StyleBundle("~/Styles/GarageList")
+									.Include("~/Content/awesome-bootstrap-checkbox.css",
+										"~/Content/DataTables/css/jquery.dataTables.css",
+										"~/Content/DataTables/css/dataTables.bootstrap.css"));
+}
+@section Styles {
+	@Styles.Render("~/Styles/GarageList")
+}
+@section PageStyle {
+	@Styles.Render("~/Content/pageStyle/garageList.css")
+}
+
+@{ BundleTable.Bundles.Add(new ScriptBundle("~/Scripts/GarageList")
+	.Include("~/Scripts/moment.min.js",
+			"~/Scripts/DataTables/jquery.dataTables.js",
+			"~/Scripts/DataTables/dataTables.bootstrap.js",
+			"~/Scripts/highCharts/highcharts.js",
+			"~/Scripts/highCharts/exporting.js",
+			"~/Scripts/utils/generateUIElements.js",
+			"~/Scripts/utils/customModals.js",
+			"~/Scripts/utils/generateCustomDataTablesFilters.js",
+				"~/Scripts/pageScript/report.js"));
+}
+@section Scripts {
+<script>
+	var now = moment();
+	var end = moment(`@Model.ProviderUtil`, 'DD/MM/YYYY hh:mm:ss A');
+	var days = end.diff(now, 'days');
+	if(parseInt(days) < 15) {
+		toastr.warning("Tài khoản của bạn sẽ hết quyền hạn nhà cung cấp trong "+ days + " ngày nữa");
+	}
+	const TIME_LIST = @Html.Raw(System.Web.Helpers.Json.Encode(Model.ReportData
+						.OrderBy(t => t.Time).Select(info => info.Time.Month.ToString()).ToList())),
+		NUM_BOOKING = @Html.Raw(System.Web.Helpers.Json.Encode(Model.ReportData
+						.OrderBy(t => t.Time).Select(info => info.NumOfBooking).ToList())),
+		NUM_SUCCESS = @Html.Raw(System.Web.Helpers.Json.Encode(Model.ReportData
+						.OrderBy(t => t.Time).Select(info => info.NumOfSuccessBooking).ToList())),
+		PROFIT      = @Html.Raw(System.Web.Helpers.Json.Encode(Model.ReportData
+						.OrderBy(t => t.Time).Select(info => info.Profit).ToList()));
+</script>
+
+	@Scripts.Render("~/Scripts/GarageList")
+}

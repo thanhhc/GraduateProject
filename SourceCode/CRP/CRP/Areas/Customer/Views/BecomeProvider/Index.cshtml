@@ -1,0 +1,92 @@
+﻿@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form id = "paymentForm" action="@Url.RouteUrl("GetProvidership", new { controller = "BecomeProvider" })" method="post">
+@Html.AntiForgeryToken()
+
+<div class="wrapper wrapper-content text-center animated fadeInDown">
+	<div id="description">
+		<div>Trở thành nhà cung cấp</div>
+		<div id="subDescription">Tận hưởng giải pháp quản lý thuê xe tuyệt vời nhất</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-4 m-t-lg">
+			<div class="subcription-plan one-month center-block">
+				<div class="plan-header">Gói 1 tháng</div>
+				<div class="plan-body">
+					<p class="price-param"><span class="price">100.000&#8363;</span><span>/tháng</span></p>
+					@if (User.IsInRole("Provider"))
+					{
+					<p><button id="1MonthPlanBtn" class="btn btn-rounded">Gia hạn</button></p>
+					}
+					else
+					{
+					<p><button id="1MonthPlanBtn" class="btn btn-rounded">Đăng kí</button></p>
+					}
+					<span>100.000&#8363; cho mỗi tháng</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 m-t-lg">
+			<div class="subcription-plan three-month center-block">
+				<div class="plan-header">Gói 3 tháng</div>
+				<div class="plan-body">
+					<p class="price-param"><span class="price">90.000&#8363;</span><span>/tháng</span></p>
+					@if (User.IsInRole("Provider"))
+					{
+						<p><button id="3MonthPlanBtn" class="btn btn-rounded">Gia hạn</button></p>
+					}
+					else
+					{
+						<p><button id="3MonthPlanBtn" class="btn btn-rounded">Đăng kí</button></p>
+					}
+					<span>270.000&#8363; cho 3 tháng</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 m-t-lg">
+			<div class="subcription-plan six-month center-block">
+				<div class="plan-header">Gói 6 tháng</div>
+				<div class="plan-body">
+					<p class="price-param"><span class="price">80.000&#8363;</span><span>/tháng</span></p>
+					@if (User.IsInRole("Provider"))
+					{
+						<p><button id="6MonthPlanBtn" class="btn btn-rounded">Gia hạn</button></p>
+					}
+					else
+					{
+						<p><button id="6MonthPlanBtn" class="btn btn-rounded">Đăng kí</button></p>
+					}
+					<span>480.000&#8363; cho 6 tháng</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row payment text-left">
+		<div class="col-lg-offset-1 col-lg-10">
+			@Html.Partial("~/Views/Shared/_NganLuongPaymentPartial.cshtml", new CRP.Models.ViewModels.NganLuongPaymentModel())
+		</div>
+	</div>
+</div>
+</form>
+
+@{ BundleTable.Bundles.Add(new StyleBundle("~/Styles/BookingConfirm")
+				   .Include("~/Content/NganLuong/NganLuong.css"));
+}
+@section Styles {
+	@Styles.Render("~/Styles/BookingConfirm")
+}
+
+@section PageStyle {
+	@Styles.Render("~/Content/pageStyle/becomeProvider.css")
+}
+
+@{ BundleTable.Bundles.Add(new ScriptBundle("~/Scripts/BookingConfirm")
+				  .Include("~/Scripts/pageScript/becomeProvider.js"));
+}
+@section Scripts {
+	@Scripts.Render("~/Scripts/BookingConfirm")
+}

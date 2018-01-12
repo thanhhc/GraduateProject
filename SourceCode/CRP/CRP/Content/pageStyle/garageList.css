@@ -1,0 +1,12 @@
+#garages .label {
+	font-size: 12px;
+	padding: 5px 10%;
+}
+
+.status-label {
+	text-align: center;
+}
+
+#confirmModal .modal-dialog {
+	margin-top: 20vh;
+}

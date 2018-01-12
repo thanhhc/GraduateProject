@@ -1,0 +1,116 @@
+﻿@using CRP.Models.ViewModels
+@model AdminReportViewModel
+@{
+	ViewBag.Title = "Bảng quản trị - CRP";
+	Layout = "~/Views/Shared/_ManagementLayout.cshtml";
+}
+
+<div class="wrapper wrapper-content">
+
+	<div class="row">
+		<div class="col-md-3">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<h5>Số lượng người dùng</h5>
+				</div>
+				<div class="ibox-content">
+					<h1 class="no-margins">@Model.NumOfActiveUser</h1>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<h5>Số lượng nhà cung cấp</h5>
+				</div>
+				<div class="ibox-content">
+					<h1 class="no-margins">@Model.NumOfActiveProvider</h1>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<h5>Số lượng garage</h5>
+				</div>
+				<div class="ibox-content">
+					<h1 class="no-margins">@Model.NumOfActiveGarage</h1>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<h5>Số lượng xe</h5>
+				</div>
+				<div class="ibox-content">
+					<h1 class="no-margins">@Model.NumOfActiveVehicle</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <div class="row">
+        <div class="col-md-9">
+            <div id="chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <span class="label label-success pull-right">Tháng hiện tại</span>
+                            <h5>Lượt đặt xe</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <h1 class="no-margins">@Model.ThisMonthNumOfSuccessfulBooking</h1>
+                            <small>Tổng số lượt</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <span class="label label-info pull-right">Tháng hiện tại</span>
+                            <h5>Lợi nhuận</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <h1 class="no-margins">@Model.ThisMonthNumOfProfit.ToString("#,##0")<small> VNĐ</small></h1>
+                            <small>Tổng lợi nhuận</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@{ BundleTable.Bundles.Add(new StyleBundle("~/Styles/AdminDashboard")
+     .Include("~/Content/DataTables/css/dataTables.bootstrap.css",
+         "~/Content/morris/morris-0.4.3.min.css",
+         "~/Content/pageStyle/adminDashboard.css"));
+}
+@section Styles {
+	@Styles.Render("~/Styles/AdminDashboard")
+}
+@{ BundleTable.Bundles.Add(new ScriptBundle("~/Scripts/AdminDashboard")
+         .Include("~/Scripts/DataTables/jquery.dataTables.js",
+             "~/Scripts/DataTables/dataTables.bootstrap.js",
+             "~/Scripts/highCharts/highcharts.js",
+             "~/Scripts/highCharts/exporting.js",
+             "~/Scripts/utils/generateUIElements.js",
+             "~/Scripts/pageScript/adminDashboard.js"));
+}
+@section Scripts {
+<script>
+    const TIME_LIST = @Html.Raw(System.Web.Helpers.Json.Encode(Model.LastHalfYearSaleReportList
+                        .OrderBy(t => t.Time).Select(info => info.Time.Month.ToString()).ToList())),
+        NUM_BOOKING = @Html.Raw(System.Web.Helpers.Json.Encode(Model.LastHalfYearSaleReportList
+                        .OrderBy(t => t.Time).Select(info => info.NumOfSuccessfulBooking).ToList())),
+        PROFIT      = @Html.Raw(System.Web.Helpers.Json.Encode(Model.LastHalfYearSaleReportList
+                        .OrderBy(t => t.Time).Select(info => info.Profit).ToList()));
+</script>
+	@Scripts.Render("~/Scripts/AdminDashboard")
+}
+

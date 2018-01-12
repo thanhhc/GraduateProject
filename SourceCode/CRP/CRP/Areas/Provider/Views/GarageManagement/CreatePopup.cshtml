@@ -1,0 +1,135 @@
+﻿@model CRP.Models.createNewGarageViewModel
+@{
+    ViewBag.Title = "CreatePopup";
+    List<CRP.Models.Entities.Location> lstLocation = ViewBag.locationList;
+    Layout = "";
+}
+    <div class="modal-dialog modal-lg" style="margin-top:10px;">
+        <div class="modal-content">
+            <div class="modal-body">
+                @using (Html.BeginForm("Create", "Garage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="modal-header modal-header-popup">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add New Garage</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-building-o"></i></span>
+                            @Html.TextBoxFor(m => m.GarageName, new { @class = "form-control", placeholder = "Name" })
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label for="locationID">Location</label>
+                                    @{
+                                        List<SelectListItem> listItems = new List<SelectListItem>();
+
+
+                                        foreach (CRP.Models.Entities.Location item2 in lstLocation)
+                                        {
+                                            listItems.Add(new SelectListItem
+                                            {
+                                                Text = item2.Name,
+                                                Value = item2.ID.ToString()
+                                            });
+                                        }
+                                    }
+                                    @Html.DropDownListFor(m => m.LocationID, listItems, null, new { @class = "form-control", placeholder = "Location" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="address">Address</label>
+                                    @Html.TextBoxFor(m => m.Address, new { @class = "form-control", placeholder = "Adress" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone1">Phone 1</label>
+                                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "Phone" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Open Time</label>
+                                    <div class="input-group row">
+                                        <label class="col-xs-2 control-label">Mon</label>
+                                        <div class="input-group col-xs-10">
+                                            <div class="input-group-addon">From</div>
+                                            <input type="text" value="6:00" class="form-control" id="openTimeMon">
+                                            <div class="input-group-addon">To</div>
+                                            <input type="text" value="20:00" class="form-control" id="closeTimeMon">
+                                        </div>
+                                    </div>
+                                    <div class="input-group row">
+                                        <label class="col-xs-2 control-label">Tue</label>
+                                        <div class="input-group col-xs-10">
+                                            <div class="input-group-addon">From</div>
+                                            <input type="text" value="6:00" class="form-control" id="openTimeTue">
+                                            <div class="input-group-addon">To</div>
+                                            <input type="text" value="20:00" class="form-control" id="closeTimeTue">
+                                        </div>
+                                    </div>
+                                    <div class="input-group row">
+                                        <label class="col-xs-2 control-label">Wed</label>
+                                        <div class="input-group col-xs-10">
+                                            <div class="input-group-addon">From</div>
+                                            <input type="text" value="6:00" class="form-control" id="openTimeWed">
+                                            <div class="input-group-addon">To</div>
+                                            <input type="text" value="20:00" class="form-control" id="closeTimeWed">
+                                        </div>
+                                    </div>
+                                    <div class="input-group row">
+                                        <label class="col-xs-2 control-label">Thu</label>
+                                        <div class="input-group col-xs-10">
+                                            <div class="input-group-addon">From</div>
+                                            <input type="text" value="6:00" class="form-control" id="openTimeThur">
+                                            <div class="input-group-addon">To</div>
+                                            <input type="text" value="20:00" class="form-control" id="closeTimeThur">
+                                        </div>
+                                    </div>
+                                    <div class="input-group row">
+                                        <label class="col-xs-2 control-label">Fri</label>
+                                        <div class="input-group col-xs-10">
+                                            <div class="input-group-addon">From</div>
+                                            <input type="text" value="6:00" class="form-control" id="openTimeFri">
+                                            <div class="input-group-addon">To</div>
+                                            <input type="text" value="20:00" class="form-control" id="closeTimeFri">
+                                        </div>
+                                    </div>
+                                    <div class="input-group row">
+                                        <label class="col-xs-2 control-label">Sat</label>
+                                        <div class="input-group col-xs-10">
+                                            <div class="input-group-addon">From</div>
+                                            <input type="text" class="form-control" id="openTimeSat">
+                                            <div class="input-group-addon">To</div>
+                                            <input type="text" class="form-control" id="closeTimeSat">
+                                        </div>
+                                    </div>
+                                    <div class="input-group row">
+                                        <label class="col-xs-2 control-label">Sun</label>
+                                        <div class="input-group col-xs-10">
+                                            <div class="input-group-addon">From</div>
+                                            <input type="text" class="form-control" id="openTimeSun">
+                                            <div class="input-group-addon">To</div>
+                                            <input type="text" class="form-control" id="closeTimeSun">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" type="submit">Save changes</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>

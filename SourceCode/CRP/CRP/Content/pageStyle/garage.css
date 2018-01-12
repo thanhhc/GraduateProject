@@ -1,0 +1,33 @@
+
+#workingTime .input-group-addon:first-of-type  {
+	font-weight: bold;
+	width: 8em;
+}
+
+.first-row {
+    margin-top: 50px;
+}
+
+#starRating {
+	font-size: 2em;
+}
+
+.edit-control {
+    display: none;
+}
+
+.ibox-title {
+    padding: 0 15px !important;
+}
+
+.ibox-title .label {
+    float: none !important;
+}
+
+.active-bg {
+    background-color: #4CAF50;
+}
+
+.inactive-bg {
+    background-color: #D32F2F;
+}

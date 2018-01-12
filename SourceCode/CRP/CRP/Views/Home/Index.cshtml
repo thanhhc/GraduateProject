@@ -1,0 +1,54 @@
+﻿@using CRP.Models
+@using CRP.Models.Entities
+
+@model List<Location>
+
+@{
+	ViewBag.Title = "Home Page";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="wrapper page-heading row">
+	<div id="banner">CAR RENTAL PORTAL</div>
+	<div id="miniSearchForm">
+		<span class="form-label form-item"><i class="fa fa-map-marker"></i></span>
+		<select id="locationFilter" class="form-item" style="width: 20%;">
+			<option></option>
+			@foreach (Location entry in Model)
+			{
+				<option value="@entry.ID">@entry.Name</option>
+			}
+		</select>
+		<span class="form-label form-item"><i class="fa fa-calendar-o"></i></span>
+		<input type="text" class="form-item" id="startTimeFilter" readonly style="width: 15%;" />
+		<span class="form-label form-item"><i class="fa fa-calendar"></i></span>
+		<input type="text" class="form-item" id="endTimeFilter" readonly style="width: 15%;" />
+		<input type="submit" class="btn btn-primary form-item" id="searchBtn" value="Tìm kiếm">
+	</div>
+</div>
+
+@{ BundleTable.Bundles.Add(new StyleBundle("~/Styles/Home")
+				   .Include("~/Content/bootstrap-datetimepicker/bootstrap-datetimepicker.css",
+					   "~/Content/select2/select2.css"));
+}
+@section Styles {
+	@Styles.Render("~/Styles/Home")
+}
+@section PageStyle {
+	@Styles.Render("~/Content/pageStyle/home.css")
+}
+
+@{ BundleTable.Bundles.Add(new ScriptBundle("~/Scripts/Home")
+				  .Include(
+					  "~/Scripts/bootstrap-datetimepicker/bootstrap-datetimepicker.js",
+					  "~/Scripts/select2/select2.full.js",
+					  "~/Scripts/pageScript/home.js"));
+}
+@section Scripts {
+	<script type="text/javascript">
+		const SOONEST_POSSIBLE_BOOKING_START_TIME_FROM_NOW_IN_HOUR = @Constants.SOONEST_POSSIBLE_BOOKING_START_TIME_FROM_NOW_IN_HOUR
+			, SOONEST_POSSIBLE_BOOKING_END_TIME_FROM_NOW_IN_HOUR = @Constants.SOONEST_POSSIBLE_BOOKING_END_TIME_FROM_NOW_IN_HOUR
+			, LATEST_POSSIBLE_BOOKING_START_TIME_FROM_NOW_IN_DAY = @Constants.LATEST_POSSIBLE_BOOKING_START_TIME_FROM_NOW_IN_DAY
+			, searchPageUrl = '@Url.RouteUrl("SearchPage", new { controller = "Home" })'
+	</script>
+	@Scripts.Render("~/Scripts/Home")
+}

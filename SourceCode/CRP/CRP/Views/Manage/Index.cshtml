@@ -1,0 +1,105 @@
+﻿@model CRP.Models.PersonalInfoViewModel
+@{
+	ViewBag.Title = "Manage";
+	String UError = ViewBag.Error;
+	Layout = "~/Views/Shared/_ManagementLayout.cshtml";
+}
+<div id="wrapper">
+	<div class="row wrapper border-bottom white-bg page-heading">
+		<div class="col-lg-10">
+			<h2>Thông tin cá nhân</h2>
+		</div>
+		<div class="col-lg-2"> </div>
+	</div>
+	<div class="wrapper wrapper-content animated fadeInLeft">
+		<div class="ibox float-e-margins">
+			<div class="ibox-content">
+				@using (Html.BeginForm("Update", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype="multipart/form-data" }))
+				{
+				@Html.AntiForgeryToken()
+				 <h3>@UError</h3>
+				<div class="row">
+					<div class="col-xs-7">
+						<div class="form-group row">
+							<label class="col-xs-3 control-label">Tên đầy đủ:</label>
+							<div class="col-xs-9">
+								@Html.TextBoxFor(m => m.Fullname, new { @class = "form-control", placeholder = "Name" })
+								@Html.ValidationMessageFor(m => m.Fullname, "", new { @class = "text-danger" })
+							</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group row">
+							<label class="col-xs-3 control-label">Email</label>
+							<div class="col-xs-9">
+								@Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email", disabled = "disabled", @readonly = "readonly"})
+								@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+							</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group row">
+							<label class="col-xs-3 control-label">Số điện thoại</label>
+							<div class="col-xs-9">
+								@Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "Phone" })
+								@Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+							</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group row">
+							<label class="col-xs-3 control-label">Mật khẩu</label>
+							<div class="col-xs-9">
+								@Html.ActionLink("Thay đổi mật khẩu", "ChangePassword", null, new {@class="btn btn-primary"})
+							</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+					</div>
+					<div class="col-xs-offset-1 col-xs-4">
+						<input type="file" id="avatarInput" name="image" accept="image/*" style="display: none;" />
+						<div id="avatarReview">
+							@if(Model.AvatarUrl == null){
+								<i class="img-circle fa fa-user-circle" style="color:#4CAF50;cursor:pointer;font-size:200px;"
+										onclick="javascript:document.getElementById('avatarInput').click()" >
+								</i>
+							} else {
+								<img class="avatar-preview" src="@Model.AvatarUrl"
+										onclick="javascript:document.getElementById('avatarInput').click()" >
+							}
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-xs-7 text-right">
+						@Html.ActionLink("Hủy bỏ", "Index", "Manage", null, new {@class = "btn btn-default"})
+						<button class="btn btn-primary" type="submit">Lưu</button>
+					</div>
+				</div>
+				}
+			</div>
+		</div>
+	</div>
+</div>
+
+@section PageStyle {
+	<style>
+		.avatar-preview {
+			border-radius: 100px;
+			cursor: pointer;
+			height: 200px;
+			width: 200px;
+		}
+	</style>
+}
+
+@{
+	BundleTable.Bundles.Add(new ScriptBundle("~/Scripts/PersonalInfo")
+		.Include("~/Scripts/pageScript/personalInfo.js"));
+}
+
+@section Scripts {
+	<script>
+		const OLD_AVATAR_URL = '@Model.AvatarUrl'
+			, IS_SUCCESS = @Model.IsSuccess.ToString().ToLower()
+			, STATUS_MESSAGE = '@Model.StatusMessage';
+	</script>
+	@Scripts.Render("~/bundles/jqueryval")
+	@Scripts.Render("~/Scripts/PersonalInfo")
+}

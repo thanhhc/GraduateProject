@@ -1,0 +1,79 @@
+﻿@using CRP.Models.Entities
+@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Car Rental Portal - @ViewBag.Title</title>
+	@Styles.Render("~/bundles/css")
+	@RenderSection("Styles", required: false)
+	@Styles.Render("~/bundles/siteCss")
+	@RenderSection("PageStyle", required: false)
+	@Scripts.Render("~/bundles/modernizr")
+	<meta name="description" content="Car Rental Portal" />
+</head>
+<body class="full-height-layout"
+	@if(ViewBag.ScrollSpyOnBody != null && ViewBag.ScrollSpyOnBody == "VehicleInfo"){<text>data-spy="scroll" data-target="#infoNavBar" data-offset="71"</text>}>
+	<div id="wrapper" class="custom-page-wrapper">
+		<div class="row border-bottom">
+			<nav class="navbar green-bg" role="navigation" style="border-radius: 0; margin-bottom: 0; padding: 0 7%">
+				<div class="navbar-header">
+					<a class="" href="/"><h2><b>CRP</b></h2></a>
+				</div>
+				
+				<ul class="nav navbar-top-links navbar-right" style="margin:0 1em;">
+					@if (Request.IsAuthenticated)
+					{
+						<ul class="nav navbar-top-links navbar-right">
+							@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+							{
+								@Html.AntiForgeryToken()
+
+								<ul class="nav navbar-nav navbar-right">
+									<li>
+										@if (User.IsInRole("Admin"))
+										{
+											@Html.ActionLink("Xin chào, " + User.Identity.GetUserName(), "AdminDashboard", "Dashboard", routeValues: null, htmlAttributes: new { title = "Manage Infomation" })
+										}
+										else if (User.IsInRole("Provider"))
+										{
+											@Html.ActionLink("Xin chào, " + User.Identity.GetUserName(), "Dashboard", "Dashboard", routeValues: null, htmlAttributes: new { title = "Manage Infomation" })
+										}
+										else {
+											@Html.ActionLink("Xin chào, " + User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage Infomation" })
+										}
+									</li>
+									<li><a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out"></i> Đăng xuất</a></li>
+								</ul>
+							}
+						</ul>
+					}
+					else
+					{
+						<ul class="nav navbar-nav navbar-right">
+							<li>@Html.ActionLink("Đăng ký", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+							<li>@Html.ActionLink("Đăng nhập", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+						</ul>
+					}
+				</ul>
+			</nav>
+		</div>
+		@RenderBody()
+		<div class="footer text-center">
+			<strong>Copyright</strong> CarRentalPortal &copy; @DateTime.Now.Year
+		</div>
+	</div>
+
+	@section Scripts {
+		<script type="text/javascript">
+			const IsCustomer = @(User.IsInRole("Customer"));
+		</script>
+		@Scripts.Render("~/Scripts/VehicleInfo")
+	}
+
+	
+	@Scripts.Render("~/bundles/js")
+	@RenderSection("Scripts", required: false)
+</body>
+</html>

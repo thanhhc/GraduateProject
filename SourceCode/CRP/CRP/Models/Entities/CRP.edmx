@@ -1,0 +1,1409 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CRPDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsProviderUntil" Type="datetime" />
+          <Property Name="AvatarURL" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="BookingReceipts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RentalPrice" Type="float" Nullable="false" />
+          <Property Name="Deposit" Type="float" Nullable="false" />
+          <Property Name="BookingFee" Type="float" Nullable="false" />
+          <Property Name="Distance" Type="int" />
+          <Property Name="Star" Type="int" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="200" />
+          <Property Name="BookingTime" Type="datetime" Nullable="false" />
+          <Property Name="StartTime" Type="datetime" Nullable="false" />
+          <Property Name="EndTime" Type="datetime" Nullable="false" />
+          <Property Name="GarageID" Type="int" Nullable="false" />
+          <Property Name="GarageName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="GarageAddress" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="GaragePhone" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="GarageEmail" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="VehicleID" Type="int" Nullable="false" />
+          <Property Name="LicenseNumber" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="VehicleName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TransmissionDetail" Type="nvarchar" MaxLength="200" />
+          <Property Name="Engine" Type="nvarchar" MaxLength="200" />
+          <Property Name="Color" Type="int" Nullable="false" />
+          <Property Name="IsCanceled" Type="bit" Nullable="false" />
+          <Property Name="IsPending" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Garages">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OwnerID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LocationID" Type="int" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Phone1" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone2" Type="varchar" MaxLength="50" />
+          <Property Name="NumOfComment" Type="int" Nullable="false" />
+          <Property Name="Star" Type="decimal" Precision="2" Scale="1" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Policy" Type="nvarchar" MaxLength="1000" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GarageWorkingTimes">
+          <Key>
+            <PropertyRef Name="GarageID" />
+            <PropertyRef Name="DayOfWeek" />
+          </Key>
+          <Property Name="GarageID" Type="int" Nullable="false" />
+          <Property Name="DayOfWeek" Type="int" Nullable="false" />
+          <Property Name="OpenTimeInMinute" Type="int" Nullable="false" />
+          <Property Name="CloseTimeInMinute" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Locations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NationID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ModelCategoryMappings">
+          <Key>
+            <PropertyRef Name="ModelID" />
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="ModelID" Type="int" Nullable="false" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Nations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PriceGroupItems">
+          <Key>
+            <PropertyRef Name="PriceGroupID" />
+            <PropertyRef Name="MaxTime" />
+          </Key>
+          <Property Name="PriceGroupID" Type="int" Nullable="false" />
+          <Property Name="MaxTime" Type="int" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="MaxDistance" Type="int" />
+        </EntityType>
+        <EntityType Name="PriceGroups">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepositPercentage" Type="decimal" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="PerDayPrice" Type="float" Nullable="false" />
+          <Property Name="MaxRentalPeriod" Type="int" />
+          <Property Name="MaxDistancePerDay" Type="int" />
+          <Property Name="ExtraChargePerKm" Type="float" />
+        </EntityType>
+        <EntityType Name="VehicleBrands">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VehicleGroups">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OwnerID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="WithDriverPriceGroupID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VehicleImages">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="VehicleID" Type="int" Nullable="false" />
+          <Property Name="URL" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VehicleModels">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BrandID" Type="int" Nullable="false" />
+          <Property Name="NumOfDoor" Type="int" Nullable="false" />
+          <Property Name="NumOfSeat" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vehicles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LicenseNumber" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ModelID" Type="int" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="GarageID" Type="int" Nullable="false" />
+          <Property Name="VehicleGroupID" Type="int" />
+          <Property Name="TransmissionType" Type="int" Nullable="false" />
+          <Property Name="TransmissionDetail" Type="nvarchar" MaxLength="100" />
+          <Property Name="FuelType" Type="int" />
+          <Property Name="Engine" Type="nvarchar" MaxLength="100" />
+          <Property Name="Color" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+          <Property Name="NumOfComment" Type="int" Nullable="false" />
+          <Property Name="Star" Type="decimal" Precision="2" Scale="1" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BookingReceipt_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="BookingReceipts" Type="Self.BookingReceipts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookingReceipts">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingReceipt_Garage">
+          <End Role="Garages" Type="Self.Garages" Multiplicity="1" />
+          <End Role="BookingReceipts" Type="Self.BookingReceipts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Garages">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BookingReceipts">
+              <PropertyRef Name="GarageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingReceipt_Vehicle">
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="1" />
+          <End Role="BookingReceipts" Type="Self.BookingReceipts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BookingReceipts">
+              <PropertyRef Name="VehicleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Car_CarGroup">
+          <End Role="VehicleGroups" Type="Self.VehicleGroups" Multiplicity="0..1" />
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleGroups">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="VehicleGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Car_Store">
+          <End Role="Garages" Type="Self.Garages" Multiplicity="1" />
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Garages">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="GarageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CarModel_CarBrand">
+          <End Role="VehicleBrands" Type="Self.VehicleBrands" Multiplicity="1" />
+          <End Role="VehicleModels" Type="Self.VehicleModels" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleBrands">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VehicleModels">
+              <PropertyRef Name="BrandID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Garage_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="Garages" Type="Self.Garages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Garages">
+              <PropertyRef Name="OwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Garage_Location">
+          <End Role="Locations" Type="Self.Locations" Multiplicity="1" />
+          <End Role="Garages" Type="Self.Garages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locations">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Garages">
+              <PropertyRef Name="LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GarageWorkingTime_Garage">
+          <End Role="Garages" Type="Self.Garages" Multiplicity="1" />
+          <End Role="GarageWorkingTimes" Type="Self.GarageWorkingTimes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Garages">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GarageWorkingTimes">
+              <PropertyRef Name="GarageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_Nation">
+          <End Role="Nations" Type="Self.Nations" Multiplicity="1" />
+          <End Role="Locations" Type="Self.Locations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nations">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Locations">
+              <PropertyRef Name="NationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModelCategoryMapping_Category">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="ModelCategoryMappings" Type="Self.ModelCategoryMappings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ModelCategoryMappings">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModelCategoryMapping_Model">
+          <End Role="VehicleModels" Type="Self.VehicleModels" Multiplicity="1" />
+          <End Role="ModelCategoryMappings" Type="Self.ModelCategoryMappings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleModels">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ModelCategoryMappings">
+              <PropertyRef Name="ModelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PriceGroupItem_PriceGroup1">
+          <End Role="PriceGroups" Type="Self.PriceGroups" Multiplicity="1" />
+          <End Role="PriceGroupItems" Type="Self.PriceGroupItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriceGroups">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PriceGroupItems">
+              <PropertyRef Name="PriceGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vehicle_Model">
+          <End Role="VehicleModels" Type="Self.VehicleModels" Multiplicity="1" />
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleModels">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="ModelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VehicleGroup_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="VehicleGroups" Type="Self.VehicleGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VehicleGroups">
+              <PropertyRef Name="OwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VehicleGroup_PriceGroup1">
+          <End Role="PriceGroups" Type="Self.PriceGroups" Multiplicity="1" />
+          <End Role="VehicleGroups" Type="Self.VehicleGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriceGroups">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VehicleGroups">
+              <PropertyRef Name="WithDriverPriceGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VehicleImage_Vehicle">
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="1" />
+          <End Role="VehicleImages" Type="Self.VehicleImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VehicleImages">
+              <PropertyRef Name="VehicleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CRPDBModelStoreContainer">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookingReceipts" EntityType="Self.BookingReceipts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Garages" EntityType="Self.Garages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GarageWorkingTimes" EntityType="Self.GarageWorkingTimes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ModelCategoryMappings" EntityType="Self.ModelCategoryMappings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Nations" EntityType="Self.Nations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PriceGroupItems" EntityType="Self.PriceGroupItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PriceGroups" EntityType="Self.PriceGroups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehicleBrands" EntityType="Self.VehicleBrands" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehicleGroups" EntityType="Self.VehicleGroups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehicleImages" EntityType="Self.VehicleImages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehicleModels" EntityType="Self.VehicleModels" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vehicles" EntityType="Self.Vehicles" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BookingReceipt_AspNetUsers" Association="Self.FK_BookingReceipt_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="BookingReceipts" EntitySet="BookingReceipts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingReceipt_Garage" Association="Self.FK_BookingReceipt_Garage">
+            <End Role="Garages" EntitySet="Garages" />
+            <End Role="BookingReceipts" EntitySet="BookingReceipts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingReceipt_Vehicle" Association="Self.FK_BookingReceipt_Vehicle">
+            <End Role="Vehicles" EntitySet="Vehicles" />
+            <End Role="BookingReceipts" EntitySet="BookingReceipts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Car_CarGroup" Association="Self.FK_Car_CarGroup">
+            <End Role="VehicleGroups" EntitySet="VehicleGroups" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Car_Store" Association="Self.FK_Car_Store">
+            <End Role="Garages" EntitySet="Garages" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CarModel_CarBrand" Association="Self.FK_CarModel_CarBrand">
+            <End Role="VehicleBrands" EntitySet="VehicleBrands" />
+            <End Role="VehicleModels" EntitySet="VehicleModels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Garage_AspNetUsers" Association="Self.FK_Garage_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Garages" EntitySet="Garages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Garage_Location" Association="Self.FK_Garage_Location">
+            <End Role="Locations" EntitySet="Locations" />
+            <End Role="Garages" EntitySet="Garages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GarageWorkingTime_Garage" Association="Self.FK_GarageWorkingTime_Garage">
+            <End Role="Garages" EntitySet="Garages" />
+            <End Role="GarageWorkingTimes" EntitySet="GarageWorkingTimes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_Nation" Association="Self.FK_Location_Nation">
+            <End Role="Nations" EntitySet="Nations" />
+            <End Role="Locations" EntitySet="Locations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModelCategoryMapping_Category" Association="Self.FK_ModelCategoryMapping_Category">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="ModelCategoryMappings" EntitySet="ModelCategoryMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModelCategoryMapping_Model" Association="Self.FK_ModelCategoryMapping_Model">
+            <End Role="VehicleModels" EntitySet="VehicleModels" />
+            <End Role="ModelCategoryMappings" EntitySet="ModelCategoryMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PriceGroupItem_PriceGroup1" Association="Self.FK_PriceGroupItem_PriceGroup1">
+            <End Role="PriceGroups" EntitySet="PriceGroups" />
+            <End Role="PriceGroupItems" EntitySet="PriceGroupItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vehicle_Model" Association="Self.FK_Vehicle_Model">
+            <End Role="VehicleModels" EntitySet="VehicleModels" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VehicleGroup_AspNetUsers" Association="Self.FK_VehicleGroup_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="VehicleGroups" EntitySet="VehicleGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VehicleGroup_PriceGroup1" Association="Self.FK_VehicleGroup_PriceGroup1">
+            <End Role="PriceGroups" EntitySet="PriceGroups" />
+            <End Role="VehicleGroups" EntitySet="VehicleGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VehicleImage_Vehicle" Association="Self.FK_VehicleImage_Vehicle">
+            <End Role="Vehicles" EntitySet="Vehicles" />
+            <End Role="VehicleImages" EntitySet="VehicleImages" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CRPDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CRPEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetRoles" EntityType="CRPDBModel.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="CRPDBModel.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="CRPDBModel.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="CRPDBModel.AspNetUser" />
+          <EntitySet Name="BookingReceipts" EntityType="CRPDBModel.BookingReceipt" />
+          <EntitySet Name="Categories" EntityType="CRPDBModel.Category" />
+          <EntitySet Name="Garages" EntityType="CRPDBModel.Garage" />
+          <EntitySet Name="GarageWorkingTimes" EntityType="CRPDBModel.GarageWorkingTime" />
+          <EntitySet Name="Locations" EntityType="CRPDBModel.Location" />
+          <EntitySet Name="Nations" EntityType="CRPDBModel.Nation" />
+          <EntitySet Name="PriceGroupItems" EntityType="CRPDBModel.PriceGroupItem" />
+          <EntitySet Name="PriceGroups" EntityType="CRPDBModel.PriceGroup" />
+          <EntitySet Name="VehicleBrands" EntityType="CRPDBModel.VehicleBrand" />
+          <EntitySet Name="VehicleGroups" EntityType="CRPDBModel.VehicleGroup" />
+          <EntitySet Name="VehicleImages" EntityType="CRPDBModel.VehicleImage" />
+          <EntitySet Name="VehicleModels" EntityType="CRPDBModel.VehicleModel" />
+          <EntitySet Name="Vehicles" EntityType="CRPDBModel.Vehicle" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="CRPDBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="CRPDBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingReceipt_AspNetUsers" Association="CRPDBModel.FK_BookingReceipt_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="BookingReceipt" EntitySet="BookingReceipts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Garage_AspNetUsers" Association="CRPDBModel.FK_Garage_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Garage" EntitySet="Garages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VehicleGroup_AspNetUsers" Association="CRPDBModel.FK_VehicleGroup_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="VehicleGroup" EntitySet="VehicleGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingReceipt_Garage" Association="CRPDBModel.FK_BookingReceipt_Garage">
+            <End Role="Garage" EntitySet="Garages" />
+            <End Role="BookingReceipt" EntitySet="BookingReceipts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingReceipt_Vehicle" Association="CRPDBModel.FK_BookingReceipt_Vehicle">
+            <End Role="Vehicle" EntitySet="Vehicles" />
+            <End Role="BookingReceipt" EntitySet="BookingReceipts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Car_Store" Association="CRPDBModel.FK_Car_Store">
+            <End Role="Garage" EntitySet="Garages" />
+            <End Role="Vehicle" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Garage_Location" Association="CRPDBModel.FK_Garage_Location">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="Garage" EntitySet="Garages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GarageWorkingTime_Garage" Association="CRPDBModel.FK_GarageWorkingTime_Garage">
+            <End Role="Garage" EntitySet="Garages" />
+            <End Role="GarageWorkingTime" EntitySet="GarageWorkingTimes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_Nation" Association="CRPDBModel.FK_Location_Nation">
+            <End Role="Nation" EntitySet="Nations" />
+            <End Role="Location" EntitySet="Locations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PriceGroupItem_PriceGroup1" Association="CRPDBModel.FK_PriceGroupItem_PriceGroup1">
+            <End Role="PriceGroup" EntitySet="PriceGroups" />
+            <End Role="PriceGroupItem" EntitySet="PriceGroupItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VehicleGroup_PriceGroup1" Association="CRPDBModel.FK_VehicleGroup_PriceGroup1">
+            <End Role="PriceGroup" EntitySet="PriceGroups" />
+            <End Role="VehicleGroup" EntitySet="VehicleGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CarModel_CarBrand" Association="CRPDBModel.FK_CarModel_CarBrand">
+            <End Role="VehicleBrand" EntitySet="VehicleBrands" />
+            <End Role="VehicleModel" EntitySet="VehicleModels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Car_CarGroup" Association="CRPDBModel.FK_Car_CarGroup">
+            <End Role="VehicleGroup" EntitySet="VehicleGroups" />
+            <End Role="Vehicle" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VehicleImage_Vehicle" Association="CRPDBModel.FK_VehicleImage_Vehicle">
+            <End Role="Vehicle" EntitySet="Vehicles" />
+            <End Role="VehicleImage" EntitySet="VehicleImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vehicle_Model" Association="CRPDBModel.FK_Vehicle_Model">
+            <End Role="VehicleModel" EntitySet="VehicleModels" />
+            <End Role="Vehicle" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="CRPDBModel.AspNetUserRoles">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="ModelCategoryMappings" Association="CRPDBModel.ModelCategoryMappings">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="VehicleModel" EntitySet="VehicleModels" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="CRPDBModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="CRPDBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="CRPDBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsProviderUntil" Type="DateTime" Precision="3" />
+          <Property Name="AvatarURL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="CRPDBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="CRPDBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+          <NavigationProperty Name="BookingReceipts" Relationship="CRPDBModel.FK_BookingReceipt_AspNetUsers" FromRole="AspNetUser" ToRole="BookingReceipt" />
+          <NavigationProperty Name="Garages" Relationship="CRPDBModel.FK_Garage_AspNetUsers" FromRole="AspNetUser" ToRole="Garage" />
+          <NavigationProperty Name="VehicleGroups" Relationship="CRPDBModel.FK_VehicleGroup_AspNetUsers" FromRole="AspNetUser" ToRole="VehicleGroup" />
+          <NavigationProperty Name="AspNetRoles" Relationship="CRPDBModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+        </EntityType>
+        <EntityType Name="BookingReceipt">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="RentalPrice" Type="Double" Nullable="false" />
+          <Property Name="Deposit" Type="Double" Nullable="false" />
+          <Property Name="BookingFee" Type="Double" Nullable="false" />
+          <Property Name="Distance" Type="Int32" />
+          <Property Name="Star" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BookingTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="GarageID" Type="Int32" Nullable="false" />
+          <Property Name="GarageName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GarageAddress" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="GaragePhone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GarageEmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VehicleID" Type="Int32" Nullable="false" />
+          <Property Name="LicenseNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VehicleName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TransmissionDetail" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Engine" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Color" Type="Int32" Nullable="false" />
+          <Property Name="IsCanceled" Type="Boolean" Nullable="false" />
+          <Property Name="IsPending" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="CRPDBModel.FK_BookingReceipt_AspNetUsers" FromRole="BookingReceipt" ToRole="AspNetUser" />
+          <NavigationProperty Name="Garage" Relationship="CRPDBModel.FK_BookingReceipt_Garage" FromRole="BookingReceipt" ToRole="Garage" />
+          <NavigationProperty Name="Vehicle" Relationship="CRPDBModel.FK_BookingReceipt_Vehicle" FromRole="BookingReceipt" ToRole="Vehicle" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="VehicleModels" Relationship="CRPDBModel.ModelCategoryMappings" FromRole="Category" ToRole="VehicleModel" />
+        </EntityType>
+        <EntityType Name="Garage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OwnerID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LocationID" Type="Int32" Nullable="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Phone1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NumOfComment" Type="Int32" Nullable="false" />
+          <Property Name="Star" Type="Decimal" Nullable="false" Precision="2" Scale="1" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Policy" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="CRPDBModel.FK_Garage_AspNetUsers" FromRole="Garage" ToRole="AspNetUser" />
+          <NavigationProperty Name="BookingReceipts" Relationship="CRPDBModel.FK_BookingReceipt_Garage" FromRole="Garage" ToRole="BookingReceipt" />
+          <NavigationProperty Name="Vehicles" Relationship="CRPDBModel.FK_Car_Store" FromRole="Garage" ToRole="Vehicle" />
+          <NavigationProperty Name="Location" Relationship="CRPDBModel.FK_Garage_Location" FromRole="Garage" ToRole="Location" />
+          <NavigationProperty Name="GarageWorkingTimes" Relationship="CRPDBModel.FK_GarageWorkingTime_Garage" FromRole="Garage" ToRole="GarageWorkingTime" />
+        </EntityType>
+        <EntityType Name="GarageWorkingTime">
+          <Key>
+            <PropertyRef Name="GarageID" />
+            <PropertyRef Name="DayOfWeek" />
+          </Key>
+          <Property Name="GarageID" Type="Int32" Nullable="false" />
+          <Property Name="DayOfWeek" Type="Int32" Nullable="false" />
+          <Property Name="OpenTimeInMinute" Type="Int32" Nullable="false" />
+          <Property Name="CloseTimeInMinute" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Garage" Relationship="CRPDBModel.FK_GarageWorkingTime_Garage" FromRole="GarageWorkingTime" ToRole="Garage" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NationID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Garages" Relationship="CRPDBModel.FK_Garage_Location" FromRole="Location" ToRole="Garage" />
+          <NavigationProperty Name="Nation" Relationship="CRPDBModel.FK_Location_Nation" FromRole="Location" ToRole="Nation" />
+        </EntityType>
+        <EntityType Name="Nation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Locations" Relationship="CRPDBModel.FK_Location_Nation" FromRole="Nation" ToRole="Location" />
+        </EntityType>
+        <EntityType Name="PriceGroupItem">
+          <Key>
+            <PropertyRef Name="PriceGroupID" />
+            <PropertyRef Name="MaxTime" />
+          </Key>
+          <Property Name="PriceGroupID" Type="Int32" Nullable="false" />
+          <Property Name="MaxTime" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="MaxDistance" Type="Int32" />
+          <NavigationProperty Name="PriceGroup" Relationship="CRPDBModel.FK_PriceGroupItem_PriceGroup1" FromRole="PriceGroupItem" ToRole="PriceGroup" />
+        </EntityType>
+        <EntityType Name="PriceGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepositPercentage" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+          <Property Name="PerDayPrice" Type="Double" Nullable="false" />
+          <Property Name="MaxRentalPeriod" Type="Int32" />
+          <Property Name="MaxDistancePerDay" Type="Int32" />
+          <Property Name="ExtraChargePerKm" Type="Double" />
+          <NavigationProperty Name="PriceGroupItems" Relationship="CRPDBModel.FK_PriceGroupItem_PriceGroup1" FromRole="PriceGroup" ToRole="PriceGroupItem" />
+          <NavigationProperty Name="VehicleGroups" Relationship="CRPDBModel.FK_VehicleGroup_PriceGroup1" FromRole="PriceGroup" ToRole="VehicleGroup" />
+        </EntityType>
+        <EntityType Name="VehicleBrand">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="VehicleModels" Relationship="CRPDBModel.FK_CarModel_CarBrand" FromRole="VehicleBrand" ToRole="VehicleModel" />
+        </EntityType>
+        <EntityType Name="VehicleGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OwnerID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="WithDriverPriceGroupID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="CRPDBModel.FK_VehicleGroup_AspNetUsers" FromRole="VehicleGroup" ToRole="AspNetUser" />
+          <NavigationProperty Name="PriceGroup" Relationship="CRPDBModel.FK_VehicleGroup_PriceGroup1" FromRole="VehicleGroup" ToRole="PriceGroup" />
+          <NavigationProperty Name="Vehicles" Relationship="CRPDBModel.FK_Car_CarGroup" FromRole="VehicleGroup" ToRole="Vehicle" />
+        </EntityType>
+        <EntityType Name="VehicleImage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="VehicleID" Type="Int32" Nullable="false" />
+          <Property Name="URL" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Vehicle" Relationship="CRPDBModel.FK_VehicleImage_Vehicle" FromRole="VehicleImage" ToRole="Vehicle" />
+        </EntityType>
+        <EntityType Name="VehicleModel">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BrandID" Type="Int32" Nullable="false" />
+          <Property Name="NumOfDoor" Type="Int32" Nullable="false" />
+          <Property Name="NumOfSeat" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="VehicleBrand" Relationship="CRPDBModel.FK_CarModel_CarBrand" FromRole="VehicleModel" ToRole="VehicleBrand" />
+          <NavigationProperty Name="Vehicles" Relationship="CRPDBModel.FK_Vehicle_Model" FromRole="VehicleModel" ToRole="Vehicle" />
+          <NavigationProperty Name="Categories" Relationship="CRPDBModel.ModelCategoryMappings" FromRole="VehicleModel" ToRole="Category" />
+        </EntityType>
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LicenseNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ModelID" Type="Int32" Nullable="false" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <Property Name="GarageID" Type="Int32" Nullable="false" />
+          <Property Name="VehicleGroupID" Type="Int32" />
+          <Property Name="TransmissionType" Type="Int32" Nullable="false" />
+          <Property Name="TransmissionDetail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FuelType" Type="Int32" />
+          <Property Name="Engine" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Color" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="NumOfComment" Type="Int32" Nullable="false" />
+          <Property Name="Star" Type="Decimal" Nullable="false" Precision="2" Scale="1" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="BookingReceipts" Relationship="CRPDBModel.FK_BookingReceipt_Vehicle" FromRole="Vehicle" ToRole="BookingReceipt" />
+          <NavigationProperty Name="Garage" Relationship="CRPDBModel.FK_Car_Store" FromRole="Vehicle" ToRole="Garage" />
+          <NavigationProperty Name="VehicleGroup" Relationship="CRPDBModel.FK_Car_CarGroup" FromRole="Vehicle" ToRole="VehicleGroup" />
+          <NavigationProperty Name="VehicleImages" Relationship="CRPDBModel.FK_VehicleImage_Vehicle" FromRole="Vehicle" ToRole="VehicleImage" />
+          <NavigationProperty Name="VehicleModel" Relationship="CRPDBModel.FK_Vehicle_Model" FromRole="Vehicle" ToRole="VehicleModel" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="CRPDBModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CRPDBModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaim">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="CRPDBModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CRPDBModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingReceipt_AspNetUsers">
+          <End Type="CRPDBModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="CRPDBModel.BookingReceipt" Role="BookingReceipt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BookingReceipt">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Garage_AspNetUsers">
+          <End Type="CRPDBModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="CRPDBModel.Garage" Role="Garage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Garage">
+              <PropertyRef Name="OwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VehicleGroup_AspNetUsers">
+          <End Type="CRPDBModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="CRPDBModel.VehicleGroup" Role="VehicleGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VehicleGroup">
+              <PropertyRef Name="OwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingReceipt_Garage">
+          <End Type="CRPDBModel.Garage" Role="Garage" Multiplicity="1" />
+          <End Type="CRPDBModel.BookingReceipt" Role="BookingReceipt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Garage">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BookingReceipt">
+              <PropertyRef Name="GarageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingReceipt_Vehicle">
+          <End Type="CRPDBModel.Vehicle" Role="Vehicle" Multiplicity="1" />
+          <End Type="CRPDBModel.BookingReceipt" Role="BookingReceipt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BookingReceipt">
+              <PropertyRef Name="VehicleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Car_Store">
+          <End Type="CRPDBModel.Garage" Role="Garage" Multiplicity="1" />
+          <End Type="CRPDBModel.Vehicle" Role="Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Garage">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Vehicle">
+              <PropertyRef Name="GarageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Garage_Location">
+          <End Type="CRPDBModel.Location" Role="Location" Multiplicity="1" />
+          <End Type="CRPDBModel.Garage" Role="Garage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Garage">
+              <PropertyRef Name="LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GarageWorkingTime_Garage">
+          <End Type="CRPDBModel.Garage" Role="Garage" Multiplicity="1" />
+          <End Type="CRPDBModel.GarageWorkingTime" Role="GarageWorkingTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Garage">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GarageWorkingTime">
+              <PropertyRef Name="GarageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Location_Nation">
+          <End Type="CRPDBModel.Nation" Role="Nation" Multiplicity="1" />
+          <End Type="CRPDBModel.Location" Role="Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nation">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="NationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PriceGroupItem_PriceGroup1">
+          <End Type="CRPDBModel.PriceGroup" Role="PriceGroup" Multiplicity="1" />
+          <End Type="CRPDBModel.PriceGroupItem" Role="PriceGroupItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriceGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PriceGroupItem">
+              <PropertyRef Name="PriceGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VehicleGroup_PriceGroup1">
+          <End Type="CRPDBModel.PriceGroup" Role="PriceGroup" Multiplicity="1" />
+          <End Type="CRPDBModel.VehicleGroup" Role="VehicleGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriceGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VehicleGroup">
+              <PropertyRef Name="WithDriverPriceGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CarModel_CarBrand">
+          <End Type="CRPDBModel.VehicleBrand" Role="VehicleBrand" Multiplicity="1" />
+          <End Type="CRPDBModel.VehicleModel" Role="VehicleModel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleBrand">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VehicleModel">
+              <PropertyRef Name="BrandID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Car_CarGroup">
+          <End Type="CRPDBModel.VehicleGroup" Role="VehicleGroup" Multiplicity="0..1" />
+          <End Type="CRPDBModel.Vehicle" Role="Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Vehicle">
+              <PropertyRef Name="VehicleGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VehicleImage_Vehicle">
+          <End Type="CRPDBModel.Vehicle" Role="Vehicle" Multiplicity="1" />
+          <End Type="CRPDBModel.VehicleImage" Role="VehicleImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VehicleImage">
+              <PropertyRef Name="VehicleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vehicle_Model">
+          <End Type="CRPDBModel.VehicleModel" Role="VehicleModel" Multiplicity="1" />
+          <End Type="CRPDBModel.Vehicle" Role="Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleModel">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Vehicle">
+              <PropertyRef Name="ModelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="CRPDBModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="CRPDBModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <Association Name="ModelCategoryMappings">
+          <End Type="CRPDBModel.Category" Role="Category" Multiplicity="*" />
+          <End Type="CRPDBModel.VehicleModel" Role="VehicleModel" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CRPDBModelStoreContainer" CdmEntityContainer="CRPEntities">
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="CRPDBModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="CRPDBModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="CRPDBModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="CRPDBModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="AvatarURL" ColumnName="AvatarURL" />
+                <ScalarProperty Name="IsProviderUntil" ColumnName="IsProviderUntil" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookingReceipts">
+            <EntityTypeMapping TypeName="CRPDBModel.BookingReceipt">
+              <MappingFragment StoreEntitySet="BookingReceipts">
+                <ScalarProperty Name="IsPending" ColumnName="IsPending" />
+                <ScalarProperty Name="IsCanceled" ColumnName="IsCanceled" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Engine" ColumnName="Engine" />
+                <ScalarProperty Name="TransmissionDetail" ColumnName="TransmissionDetail" />
+                <ScalarProperty Name="VehicleName" ColumnName="VehicleName" />
+                <ScalarProperty Name="LicenseNumber" ColumnName="LicenseNumber" />
+                <ScalarProperty Name="VehicleID" ColumnName="VehicleID" />
+                <ScalarProperty Name="GarageEmail" ColumnName="GarageEmail" />
+                <ScalarProperty Name="GaragePhone" ColumnName="GaragePhone" />
+                <ScalarProperty Name="GarageAddress" ColumnName="GarageAddress" />
+                <ScalarProperty Name="GarageName" ColumnName="GarageName" />
+                <ScalarProperty Name="GarageID" ColumnName="GarageID" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="BookingTime" ColumnName="BookingTime" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Star" ColumnName="Star" />
+                <ScalarProperty Name="Distance" ColumnName="Distance" />
+                <ScalarProperty Name="BookingFee" ColumnName="BookingFee" />
+                <ScalarProperty Name="Deposit" ColumnName="Deposit" />
+                <ScalarProperty Name="RentalPrice" ColumnName="RentalPrice" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="CRPDBModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Garages">
+            <EntityTypeMapping TypeName="CRPDBModel.Garage">
+              <MappingFragment StoreEntitySet="Garages">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Policy" ColumnName="Policy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Star" ColumnName="Star" />
+                <ScalarProperty Name="NumOfComment" ColumnName="NumOfComment" />
+                <ScalarProperty Name="Phone2" ColumnName="Phone2" />
+                <ScalarProperty Name="Phone1" ColumnName="Phone1" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GarageWorkingTimes">
+            <EntityTypeMapping TypeName="CRPDBModel.GarageWorkingTime">
+              <MappingFragment StoreEntitySet="GarageWorkingTimes">
+                <ScalarProperty Name="CloseTimeInMinute" ColumnName="CloseTimeInMinute" />
+                <ScalarProperty Name="OpenTimeInMinute" ColumnName="OpenTimeInMinute" />
+                <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
+                <ScalarProperty Name="GarageID" ColumnName="GarageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="CRPDBModel.Location">
+              <MappingFragment StoreEntitySet="Locations">
+                <ScalarProperty Name="NationID" ColumnName="NationID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nations">
+            <EntityTypeMapping TypeName="CRPDBModel.Nation">
+              <MappingFragment StoreEntitySet="Nations">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PriceGroupItems">
+            <EntityTypeMapping TypeName="CRPDBModel.PriceGroupItem">
+              <MappingFragment StoreEntitySet="PriceGroupItems">
+                <ScalarProperty Name="MaxDistance" ColumnName="MaxDistance" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="MaxTime" ColumnName="MaxTime" />
+                <ScalarProperty Name="PriceGroupID" ColumnName="PriceGroupID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PriceGroups">
+            <EntityTypeMapping TypeName="CRPDBModel.PriceGroup">
+              <MappingFragment StoreEntitySet="PriceGroups">
+                <ScalarProperty Name="ExtraChargePerKm" ColumnName="ExtraChargePerKm" />
+                <ScalarProperty Name="MaxDistancePerDay" ColumnName="MaxDistancePerDay" />
+                <ScalarProperty Name="MaxRentalPeriod" ColumnName="MaxRentalPeriod" />
+                <ScalarProperty Name="PerDayPrice" ColumnName="PerDayPrice" />
+                <ScalarProperty Name="DepositPercentage" ColumnName="DepositPercentage" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehicleBrands">
+            <EntityTypeMapping TypeName="CRPDBModel.VehicleBrand">
+              <MappingFragment StoreEntitySet="VehicleBrands">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehicleGroups">
+            <EntityTypeMapping TypeName="CRPDBModel.VehicleGroup">
+              <MappingFragment StoreEntitySet="VehicleGroups">
+                <ScalarProperty Name="WithDriverPriceGroupID" ColumnName="WithDriverPriceGroupID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehicleImages">
+            <EntityTypeMapping TypeName="CRPDBModel.VehicleImage">
+              <MappingFragment StoreEntitySet="VehicleImages">
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="VehicleID" ColumnName="VehicleID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehicleModels">
+            <EntityTypeMapping TypeName="CRPDBModel.VehicleModel">
+              <MappingFragment StoreEntitySet="VehicleModels">
+                <ScalarProperty Name="NumOfSeat" ColumnName="NumOfSeat" />
+                <ScalarProperty Name="NumOfDoor" ColumnName="NumOfDoor" />
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vehicles">
+            <EntityTypeMapping TypeName="CRPDBModel.Vehicle">
+              <MappingFragment StoreEntitySet="Vehicles">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Star" ColumnName="Star" />
+                <ScalarProperty Name="NumOfComment" ColumnName="NumOfComment" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Engine" ColumnName="Engine" />
+                <ScalarProperty Name="FuelType" ColumnName="FuelType" />
+                <ScalarProperty Name="TransmissionDetail" ColumnName="TransmissionDetail" />
+                <ScalarProperty Name="TransmissionType" ColumnName="TransmissionType" />
+                <ScalarProperty Name="VehicleGroupID" ColumnName="VehicleGroupID" />
+                <ScalarProperty Name="GarageID" ColumnName="GarageID" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="ModelID" ColumnName="ModelID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LicenseNumber" ColumnName="LicenseNumber" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="CRPDBModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ModelCategoryMappings" TypeName="CRPDBModel.ModelCategoryMappings" StoreEntitySet="ModelCategoryMappings">
+            <EndProperty Name="VehicleModel">
+              <ScalarProperty Name="ID" ColumnName="ModelID" />
+            </EndProperty>
+            <EndProperty Name="Category">
+              <ScalarProperty Name="ID" ColumnName="CategoryID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

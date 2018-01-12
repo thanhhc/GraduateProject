@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "TestDropzone";
+    Layout = "~/Views/Shared/_ManagementLayout.cshtml";
+}
+<style type="text/css">
+    .dz-max-files-reached {
+        background-color: red;
+    }
+</style>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>File upload</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Home</a>
+            </li>
+            <li>
+                <a>Forms</a>
+            </li>
+            <li class="active">
+                <strong>File upload</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="jumbotron">
+                    <form action="/Home/SaveUploadedFile" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
+                        <div class="fallback">
+                            <input name="file" type="file" multiple />
+                            <input type="submit" value="Upload"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{ BundleTable.Bundles.Add(new StyleBundle("~/Styles/GarageList")
+                                                            .Include("~/Content/awesome-bootstrap-checkbox.css",
+                                                                "~/Scripts/dropzone/dropzone.css",
+                                                                "~/Scripts/dropzone/basic.css",
+                                                                "~/Content/DataTables/css/dataTables.bootstrap.css"));
+}
+@section Styles {
+    @Styles.Render("~/Styles/GarageList")
+}
+@section PageStyle {
+    @Styles.Render("~/Content/pageStyle/garageList.css")
+}
+
+@{ BundleTable.Bundles.Add(new ScriptBundle("~/Scripts/GarageList")
+                                                                         .Include("~/Scripts/chosen.jquery.js",
+                                                                                                   "~/Scripts/dropzone/dropzone.js",
+                                                                                                    "~/Scripts/pageScript/Dropzone.js"));
+}
+@section Scripts {s
+    @Scripts.Render("~/Scripts/GarageList")
+}

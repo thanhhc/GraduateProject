@@ -1,0 +1,47 @@
+﻿@using CRP.Models
+@model LoginViewModel
+@{
+	ViewBag.Title = "Log in";
+}
+<div class="middle-box text-center loginscreen animated fadeInDown">
+	<div style="background-color: hsla(122,43%,20%,.9); margin: 4em 0 10em 0; padding: 2em;">
+		<p style="color:white; font-size: 2em;">Đăng nhập</p>
+		@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+		{
+			@Html.AntiForgeryToken()
+			@Html.ValidationSummary(true, "", new { @class = "text-warning" })
+			<div class="form-group">
+				@Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
+				@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-warning" })
+			</div>
+			<div class="form-group ">
+				@Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Mật khẩu" })
+				@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-warning" })
+			</div>
+			<button type="submit" class="btn btn-primary btn-block m-b-sm" style="color:white">Đăng nhập</button>
+			<small>@Html.ActionLink("Quên mật khẩu?", "ForgotPassword")</small>
+			<p class="text-center" style="color:white;" >
+				<small>Bạn không có tài khoản?</small>
+			</p>
+			<div>@Html.ActionLink("Đăng kí tài khoản mới", "Register", null, new { @class="btn btn-sm btn-white btn-block" })</div>
+		}
+
+	</div>
+</div>
+
+@section PageStyle {
+	<style>
+		body{
+			background-attachment: fixed;
+			background-image: url('/Content/img/backgrounds/1.jpg');
+			background-position: right top;
+			background-size: cover;
+			background-repeat: no-repeat;
+		}
+	</style>
+}
+
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}

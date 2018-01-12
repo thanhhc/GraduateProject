@@ -1,0 +1,185 @@
+﻿@model CRP.Models.ViewModels.FilterByGarageView
+
+@{
+	ViewBag.Title = "Booking Management - CRP";
+	Layout = "~/Views/Shared/_ManagementLayout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-md-10"><h2>Quản lý đặt xe</h2></div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox ibox-content float-e-margins">
+		<div class="row">
+			<div class="col-md-4 pull-left m-l m-b">
+				<div class="checkbox">
+					<input type="checkbox" id="byGarage" checked>
+					<label for="byGarage"> Lọc theo garage</label>
+				</div>
+				@Html.DropDownListFor(q => q.garageID, this.Model.listGarage, new { @class = "form-control", @id = "garageID" })
+			</div>
+			<div class="pull-right m-r m-b table-bordered">
+				<br>
+				<div class="checkbox">
+					<input type="checkbox" id="isCanceled" checked>
+					<label for="isCanceled"> Hiện hóa đơn đã hủy</label>
+				</div>
+				<div class="checkbox">
+					<input type="checkbox" id="isSelfBooking" checked>
+					<label for="isSelfBooking"> Hiện hóa đợn tự đặt</label>
+				</div>
+				<br>
+			</div>
+			<div class="pull-right m-r m-b table-bordered">
+				<h3>Thời gian thanh toán</h3>
+				<div class="radio">
+					<input type="radio" id="rd1" value="all" name="bookingTime" checked>
+					<label for="rd1"> Tất cả</label>
+				</div>
+				<div class="radio">
+					<input type="radio" id="rd2" value="past" name="bookingTime">
+					<label for="rd2"> Đã qua</label>
+				</div>
+				<div class="radio">
+					<input type="radio" id="rd3" value="future" name="bookingTime">
+					<label for="rd3"> Sắp đến</label>
+				</div>
+			</div>
+		</div>
+		<table id="bookings" class="table table-stripped table-bordered table-hover" width="100%"></table>
+	</div>
+</div>
+
+<div id="detailBooking" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Thông tin đặt xe</h4>
+			</div>
+			<div class="modal-body">
+				<div class="ibox">
+					<div class="ibox-title">Thông tin khách hàng</div>
+					<div class="ibox-content">
+						<div class="row">
+							<div class="col-md-2 text-right">
+								<label>Tên khách hàng</label>
+							</div>
+							<div id="customerName" class="col-md-4 text-center"></div>
+
+							<div class="col-md-2 text-right">
+								<label>Email liên hệ</label>
+							</div>
+							<div id="customerEmail" class="col-md-4 text-center"></div>
+							<div class="col-md-offset-6 col-md-2 text-right">
+								<label>Số điện thoại</label>
+							</div>
+							<div id="customerPhone" class="col-md-4 text-center"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="ibox">
+					<div class="ibox-title">Thông tin xe cho thuê</div>
+					<div class="ibox-content">
+						<div class="row">
+							<div class="col-md-2 text-right">
+								<label>Tên xe</label>
+							</div>
+							<div id="vehicleName" class="col-md-4 text-center"></div>
+
+							<div class="col-md-2 text-right">
+								<label>Biển số xe</label>
+							</div>
+							<div id="licenseNumber" class="col-md-4 text-center"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="ibox">
+					<div class="ibox-title">Nội dung đặt xe chi tiết</div>
+					<div class="ibox-content">
+						<div class="row">
+							<div class="col-md-2 text-right">
+								<label>Giá cho thuê</label>
+							</div>
+							<div id="rentalPrice" class="col-md-4 text-center"></div>
+
+							<div class="col-md-2 text-right">
+								<label>Thời gian thuê</label>
+							</div>
+							<div class="col-md-4 text-center">
+								Từ <span id="startTime"></span>
+								<br>
+								Đến <span id="endTime"></span>
+							</div>
+							<div class="col-md-2 text-right">
+								<label>Tiền đặt cọc</label>
+							</div>
+							<div id="deposit" class="col-md-4 text-center"></div>
+
+							<div class="col-md-6">
+								<div class="row m-t">
+									<div class="col-md-6">
+										<label>Đánh giá và nhận xét</label>
+									</div>
+									<div class="col-md-6">
+										<span id="rating"></span>
+									</div>
+									<div class="col-md-offset-1 col-md-10">
+										<p id="comment"></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="cancelBooking" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header red-bg">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Hủy đặt xe</h4>
+			</div>
+			<div class="modal-body">
+				<input type="hidden" id="br-id" />
+				Bạn có chắc chắn hủy đặt xe <span id="vehicle-name"></span> trong khoảng từ <span id="start-time"></span> đến <span id="end-time"></span> không?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+				<button id="btnCancelBooking" class="btn btn-danger" type="button">Đồng ý</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+@{ BundleTable.Bundles.Add(new StyleBundle("~/Styles/BookingManagement")
+				  .Include("~/Content/awesome-bootstrap-checkbox.css",
+					  "~/Content/DataTables/css/dataTables.bootstrap.css"));
+}
+@section Styles {
+	@Styles.Render("~/Styles/BookingManagement")
+}
+
+@{ BundleTable.Bundles.Add(new ScriptBundle("~/Scripts/BookingManagement")
+				  .Include("~/Scripts/DataTables/jquery.dataTables.js",
+					  "~/Scripts/DataTables/dataTables.bootstrap.js",
+					  "~/Scripts/utils/generateUIElements.js",
+					  "~/Scripts/pageScript/bookingManagement.js"));
+}
+@section Scripts {
+	<script type="text/javascript">
+		const queryApiUrl = '@Url.RouteUrl("GetBookingListAPI", new { controller = "BookingManagement" })'
+	</script>
+	@Scripts.Render("~/Scripts/BookingManagement")
+}

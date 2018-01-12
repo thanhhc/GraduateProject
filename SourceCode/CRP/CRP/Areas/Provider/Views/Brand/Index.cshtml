@@ -1,0 +1,91 @@
+﻿@model CRP.Models.Entities.Brand
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_ManagementLayout.cshtml";
+    List<CRP.Models.Entities.Brand> lstBrand = ViewBag.brandList;
+}
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>
+                Name
+            </th>
+            <th>Delete</th>
+            <th>Update</th>
+        </tr>
+
+    </thead>
+    <tbody>@Url.
+        @{
+            foreach (CRP.Models.Entities.Brand brand in lstBrand)
+            {
+                <tr>
+                    <td>
+                        @brand.ID
+                    </td>
+                    <td>
+                        <input type="text" id="txtBrand@(brand.ID)" value="@brand.Name"/>
+                    </td>
+                    <td>
+                    <button class="btn btn-primary" onclick="deleteBrand(@brand.ID)">Delete</button></td>
+                    <td>
+                        <button class="btn btn-primary" onclick="updateBrand(@brand.ID)">Update</button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<script>
+    function updateBrand(id){
+        var id = id;
+        var brand = $(`#txtBrand${id}`).val();
+        $.ajax({
+            url: '/Brand/Edit',
+            data: {
+                id: id,
+                brand: brand,
+            },
+            error: function() {
+                alert("Problem occurred!")
+            },
+            success: function (data) {
+                if (data ==='true')
+                {
+                    alert("Edit successfully");
+                    location.reload();
+                } else{
+                    alert("Problem!!");
+                    location.reload();
+                }
+            },
+            type: 'POST'
+        })
+    }
+    function deleteBrand(id) {
+        $.ajax({
+            url: '/Brand/Delete',
+            data: {
+                id: id
+            },
+
+            error: function () {
+                alert("Problem")
+            },
+            success: function (data) {
+                if (data.isSucced) {
+                    alert("Delete successfully!")
+                    location.reload();
+                } else {
+                    alert("Cannot delete this because it is in used!");
+                }
+            },
+            fail : function(){
+                alert("cccc")
+            },
+            type: 'post'
+        });
+    }
+</script>

@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRP", "CRP\CRP.csproj", "{D5D513FB-BA6D-45C4-A99A-3D8B65BD3A6D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0BAC01F9-2370-4022-BE79-70A7B50B1694}"
+	ProjectSection(SolutionItems) = preProject
+		WebEssentials2015-Settings.json = WebEssentials2015-Settings.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D5D513FB-BA6D-45C4-A99A-3D8B65BD3A6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5D513FB-BA6D-45C4-A99A-3D8B65BD3A6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5D513FB-BA6D-45C4-A99A-3D8B65BD3A6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5D513FB-BA6D-45C4-A99A-3D8B65BD3A6D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

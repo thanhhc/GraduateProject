@@ -1,0 +1,45 @@
+body { 
+  background: url(wallpaper.jpg) no-repeat center center;
+    background-attachment: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.box-width{
+    padding: 0px 200px 0 200px;
+}
+.button-width{
+    width: 200px;
+}
+.textConfig{
+    color: white;
+    padding-left: 30px;
+}
+.transbox {
+  margin: 30px;
+  background-color: #ffffff;
+  border: 1px solid black;
+  opacity: 0.6;
+}
+.rgbaText {
+    background: rgba(76, 175, 80, 0.1);
+}
+.btn-register{
+    background-color:#FF5252;
+}
+ .border-opacity:hover {
+    background-color: rgba(0, 102, 0, 0.5);
+ }
+.backgroundStyle{
+    background-color: rgba(19, 0, 26, 0.9);
+}
+.margin-signup{
+    margin: 0em 0 1em 0;
+}
+.padding-signup{
+    padding: 50px 400px 0px 400px;
+}
+.logo-name{
+font-size:130px !important;
+}

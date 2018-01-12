@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CRPDBModelStoreContainer" CdmEntityContainer="CRPEntities">
+    <EntitySetMapping Name="BookingReceipts">
+      <EntityTypeMapping TypeName="CRPDBModel.BookingReceipt">
+        <MappingFragment StoreEntitySet="BookingReceipt">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+          <ScalarProperty Name="VehicleID" ColumnName="VehicleID" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+          <ScalarProperty Name="BookingFee" ColumnName="BookingFee" />
+          <ScalarProperty Name="Star" ColumnName="Star" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="IsCanceled" ColumnName="IsCanceled" />
+          <ScalarProperty Name="VehicleName" ColumnName="VehicleName" />
+          <ScalarProperty Name="GarageName" ColumnName="GarageName" />
+          <ScalarProperty Name="GarageAddress" ColumnName="GarageAddress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Brands">
+      <EntityTypeMapping TypeName="CRPDBModel.Brand">
+        <MappingFragment StoreEntitySet="Brand">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Garages">
+      <EntityTypeMapping TypeName="CRPDBModel.Garage">
+        <MappingFragment StoreEntitySet="Garage">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone1" ColumnName="Phone1" />
+          <ScalarProperty Name="Phone2" ColumnName="Phone2" />
+          <ScalarProperty Name="Star" ColumnName="Star" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="OpenTimeMon" ColumnName="OpenTimeMon" />
+          <ScalarProperty Name="CloseTimeMon" ColumnName="CloseTimeMon" />
+          <ScalarProperty Name="OpenTimeTue" ColumnName="OpenTimeTue" />
+          <ScalarProperty Name="CloseTimeTue" ColumnName="CloseTimeTue" />
+          <ScalarProperty Name="OpenTImeWed" ColumnName="OpenTImeWed" />
+          <ScalarProperty Name="CloseTImeWed" ColumnName="CloseTImeWed" />
+          <ScalarProperty Name="OpenTimeThur" ColumnName="OpenTimeThur" />
+          <ScalarProperty Name="CloseTimeThur" ColumnName="CloseTimeThur" />
+          <ScalarProperty Name="OpenTimeFri" ColumnName="OpenTimeFri" />
+          <ScalarProperty Name="CloseTimeFri" ColumnName="CloseTimeFri" />
+          <ScalarProperty Name="OpenTimeSat" ColumnName="OpenTimeSat" />
+          <ScalarProperty Name="CloseTimeSat" ColumnName="CloseTimeSat" />
+          <ScalarProperty Name="OpenTimeSun" ColumnName="OpenTimeSun" />
+          <ScalarProperty Name="CloseTimeSun" ColumnName="CloseTimeSun" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Models">
+      <EntityTypeMapping TypeName="CRPDBModel.Model">
+        <MappingFragment StoreEntitySet="Model">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Model1" ColumnName="Model" />
+          <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="NumOfDoor" ColumnName="NumOfDoor" />
+          <ScalarProperty Name="NumOfSeat" ColumnName="NumOfSeat" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Notifications">
+      <EntityTypeMapping TypeName="CRPDBModel.Notification">
+        <MappingFragment StoreEntitySet="Notification">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SenderID" ColumnName="SenderID" />
+          <ScalarProperty Name="ReceiverID" ColumnName="ReceiverID" />
+          <ScalarProperty Name="NotificationContent" ColumnName="NotificationContent" />
+          <ScalarProperty Name="SentTime" ColumnName="SentTime" />
+          <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PriceGroups">
+      <EntityTypeMapping TypeName="CRPDBModel.PriceGroup">
+        <MappingFragment StoreEntitySet="PriceGroup">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Deposit" ColumnName="Deposit" />
+          <ScalarProperty Name="PerDayPrice" ColumnName="PerDayPrice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PriceGroupItems">
+      <EntityTypeMapping TypeName="CRPDBModel.PriceGroupItem">
+        <MappingFragment StoreEntitySet="PriceGroupItem">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="PriceGroupID" ColumnName="PriceGroupID" />
+          <ScalarProperty Name="MaxTime" ColumnName="MaxTime" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="CRPDBModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="IsProviderUntil" ColumnName="IsProviderUntil" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+          <ScalarProperty Name="Star" ColumnName="Star" />
+          <ScalarProperty Name="SelfDescription" ColumnName="SelfDescription" />
+          <ScalarProperty Name="AvatarURL" ColumnName="AvatarURL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vehicles">
+      <EntityTypeMapping TypeName="CRPDBModel.Vehicle">
+        <MappingFragment StoreEntitySet="Vehicle">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="LicenseNumber" ColumnName="LicenseNumber" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ModelID" ColumnName="ModelID" />
+          <ScalarProperty Name="GarageID" ColumnName="GarageID" />
+          <ScalarProperty Name="VehicleGroupID" ColumnName="VehicleGroupID" />
+          <ScalarProperty Name="TransmissionType" ColumnName="TransmissionType" />
+          <ScalarProperty Name="TransmissionDetail" ColumnName="TransmissionDetail" />
+          <ScalarProperty Name="FuelType" ColumnName="FuelType" />
+          <ScalarProperty Name="Engine" ColumnName="Engine" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Star" ColumnName="Star" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VehicleGroups">
+      <EntityTypeMapping TypeName="CRPDBModel.VehicleGroup">
+        <MappingFragment StoreEntitySet="VehicleGroup">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="MaxRentalPeriod" ColumnName="MaxRentalPeriod" />
+          <ScalarProperty Name="DefaultPriceGroupID" ColumnName="DefaultPriceGroupID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VehicleImages">
+      <EntityTypeMapping TypeName="CRPDBModel.VehicleImage">
+        <MappingFragment StoreEntitySet="VehicleImage">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="CarID" ColumnName="CarID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,540 @@
+﻿@using CRP.Models
+@using CRP.Models.Entities
+@using CRP.Models.ViewModels
+
+@model CRP.Models.ViewModels.VehicleDetailInfoViewModel
+@{
+	ViewBag.Title = "Quản lý xe";
+	Layout = "~/Views/Shared/_ManagementLayout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-md-10"><h2>Thông tin xe</h2></div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox float-e-margins">
+		@Html.HiddenFor(q => q.ID, new { @id = "vehicleID" })
+		
+		<div class="ibox-title" style="padding: 1px 20px;">
+			<div class="edit-control row">
+				<div class="input-group" style="width:100%;">
+					<span class="input-group-addon text-center" style="color:#000;font-size:2em;width:2em;"><i class="fa fa-pencil-square-o"></i></span>
+					@Html.TextBoxFor(q => q.Name, new { @id = "vehicleNameInput", @class = "form-control input-lg", @placeholder = "Tên xe", @style = "color:#000;font-size:1.5em;", @maxlength = 100, required = true, data_default = Model.Name })
+				</div>
+			</div>
+			<div id="displayGarageName" class="display-control" style="font-size:2em;margin:0.5em 0em">
+				<span>@Model.Name</span>
+			</div>
+		</div>
+
+		<div class="ibox-content">
+			<div class="edit-control form-group">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="row m-b">
+							<div class="col-md-4 text-right">
+								<label>Biển số xe </label>
+							</div>
+							<div class="col-md-8">
+								@Html.TextBoxFor(q => q.LicenseNumber, new { @class = "form-control", @id = "licenseNumberInput", @maxlength = "50", required = true, data_default = Model.LicenseNumber })
+							</div>
+						</div>
+						<div class="row m-b">
+							<div class="col-md-4 text-right">
+								<label>Garage </label>
+							</div>
+							<div class="col-md-8">
+								@Html.DropDownListFor(q => q.GarageID, Model.listGarage, new { @class = "form-control", @id = "garageIDInput", data_default = Model.GarageID })
+							</div>
+						</div>
+						<div class="row m-b">
+							<div class="col-md-4 text-right">
+								<label>Nhóm xe </label>
+							</div>
+							<div class="col-md-8">
+								<select id="vehicleGroupIDInput" class="form-control" data-default="@Model.VehicleGroupID" >
+									<option></option>
+									@foreach (SelectListItem entry in Model.listGroup)
+									{
+										<option value="@entry.Value" selected="@(Model.VehicleGroupID != null && entry.Value == Model.VehicleGroupID.ToString())" >@entry.Text</option>
+									}
+								</select>
+							</div>
+						</div>
+						<div class="row m-b">
+							<div class="col-md-4 text-right">
+								<label>Chi tiết về hộp số</label>
+							</div>
+							<div class="col-md-8">
+								@Html.TextBoxFor(q => q.TransmissionDetail, new { @type = "text", @class = "form-control", @id = "transmissionDetailInput", @maxlength = "100", data_default = Model.TransmissionDetail })
+							</div>
+						</div>
+						<div class="row m-b">
+							<div class="col-md-4 text-right">
+								<label>Động cơ</label>
+							</div>
+							<div class="col-md-8">
+								@Html.TextBoxFor(q => q.Engine, new { @type = "text", @class = "form-control", @id = "engineInput", @maxlength = "100", data_default = Model.Engine })
+							</div>
+						</div>
+						<div class="row m-b">
+							<div class="col-md-4 text-right">
+								<label>Màu xe </label>
+							</div>
+							<div class="col-md-8">
+								@for (var i = 1; i < Constants.COLOR.Count(); i++)
+								{
+									<div class="color-selector">
+										<input id="color@(Constants.COLOR[i])" name="colorInput" value="@i" type="radio" checked="@(Model.ColorID == i)" data-default="@(Model.ColorID == i)" >
+										<label for="color@(Constants.COLOR[i])" style="background-color: @Constants.COLOR[i];"></label>
+									</div>
+								}
+								<div class="color-selector another-color">
+									<input id="color0" name="colorInput" value="0" type="radio" checked="@(Model.ColorID == 0)" required data-default="@(Model.ColorID == 0)" >
+									<label for="color0"></label>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<form action="/api/vehicles/images/@Model.ID" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
+
+						</form>
+					</div>
+
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="row m-b text-center">
+								<h3>Mô tả</h3>
+							<div class="col-md-12 text-left">
+								@Html.TextAreaFor(q => q.Description, new { @class = "form-control", @id = "descriptionInput", @rows="20", @maxlength = "1000", data_default = @Model.Description })
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="display-control form-group">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="row m-b m-t">
+							<div class="col-md-offset-1 col-md-4">
+								<label>Biển số xe</label>
+							</div>
+							<div class="col-md-7">
+								@Model.LicenseNumber
+							</div>
+						</div>
+						<div class="row m-b">
+							<div class="col-md-offset-1 col-md-4">
+								<label>Dòng xe</label>
+							</div>
+							<div class="col-md-7">
+								@Model.ModelName
+							</div>
+						</div>
+						<div class="row m-b">
+							<div class="col-md-offset-1 col-md-4">
+								<label>Năm sản xuất</label>
+							</div>
+							<div class="col-md-7">
+								@Model.Year
+							</div>
+						</div>
+						<div class="row m-b">
+							<div class="col-md-offset-1 col-md-4">
+								<label>Garage</label>
+							</div>
+							<div class="col-md-7">
+								@Model.GarageName
+							</div>
+						</div>
+						<div class="row m-b">
+							<div class="col-md-offset-1 col-md-4">
+								<label>Nhóm xe</label>
+							</div>
+							<div class="col-md-7">
+								@Model.VehicleGroupName
+							</div>
+						</div>
+						<div class="row m-b">
+							<div class="col-md-offset-1 col-md-4">
+								<label>Loại hộp số</label>
+							</div>
+							<div class="col-md-7">
+								@Model.TransmissionTypeName
+							</div>
+						</div>
+						@if (@Model.TransmissionDetail != null) {
+							<div class="row m-b">
+								<div class="col-md-offset-1 col-md-4">
+									<label>Chi tiết về hộp số</label>
+								</div>
+								<div class="col-md-7">
+									@Model.TransmissionDetail
+								</div>
+							</div>
+						}
+						@if (@Model.FuelTypeName != null) {
+							<div class="row m-b">
+								<div class="col-md-offset-1 col-md-4">
+									<label>Loại nhiên liệu</label>
+								</div>
+								<div class="col-md-7">
+									@Model.FuelTypeName
+								</div>
+							</div>
+						}
+						@if (@Model.Engine != null) {
+							<div class="row m-b">
+								<div class="col-md-offset-1 col-md-4">
+									<label>Động cơ</label>
+								</div>
+								<div class="col-md-7">
+									@Model.Engine
+								</div>
+							</div>
+						}
+						<div class="row m-b">
+							<div class="col-md-offset-1 col-md-4">
+								<label>Màu xe</label>
+							</div>
+							<div class="col-md-7">
+								<i class="fa fa-circle fa-2x" style="color:@(Model.ColorName)"></i>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-6">
+						<div id="smallCarousel">
+							<div id="smallCarouselDisplay"></div>
+							<!-- Controls -->
+							<a class="left carousel-control">
+								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+								<span class="sr-only">Previous</span>
+							</a>
+							<a class="right carousel-control">
+								<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+								<span class="sr-only">Next</span>
+							</a>
+						</div>
+					</div>
+
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-md-offset-1 col-md-1">
+						<label>Mô tả</label>
+					</div>
+					<div class="col-md-9 text-left">
+						@if (Model.Description != null)
+						{
+							<span style="white-space: pre-line">@Model.Description</span>
+						}
+						else
+						{
+							<text>Chưa có mô tả</text>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="ibox-footer">
+			<button class="btn btn-danger" data-toggle="modal" data-target="#deleteConfirmModel" >Xóa xe</button>
+			<button id="editInfoBtn" class ="btn btn-success pull-right display-control"><i class ="fa fa-pencil-square-o"></i> Chỉnh sửa thông tin</button>
+			<button id="saveChangeBtn" class="edit-control btn btn-primary pull-right">Lưu lại</button>
+			<button id="cancelChangeBtn" class="edit-control btn btn-default pull-right m-r-xs">Hủy bỏ</button>
+		</div>
+	</div>
+
+	<div class="tabs-container" style="margin-bottom: 10em;">
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#tab-booking">Thông tin đặt xe</a></li>
+			<li class=""><a data-toggle="tab" href="#tab-comment">Thông tin đánh giá</a></li>
+		</ul>
+		<div class="tab-content">
+			<div id="tab-booking" class="tab-pane active">
+				<div class="panel-body">
+					<div class="ibox ibox-content float-e-margins">
+						<div class="row">
+							<div class="m-l m-b pull-left">
+								<h3>Thời gian thanh toán</h3>
+								<div class="radio">
+									<input type="radio" id="rd1" value="all" name="bookingTime" checked>
+									<label for="rd1"> Tất cả</label>
+								</div>
+								<div class="radio">
+									<input type="radio" id="rd2" value="past" name="bookingTime">
+									<label for="rd2"> Đã qua</label>
+								</div>
+								<div class="radio">
+									<input type="radio" id="rd3" value="future" name="bookingTime">
+									<label for="rd3"> Sắp đến</label>
+								</div>
+							</div>
+							<div class="m-l m-b pull-left">
+								<br>
+								<div class="checkbox">
+									<input type="checkbox" id="isCanceled" checked>
+									<label for="isCanceled"> Hiện hóa đơn đã hủy</label>
+								</div>
+								<div class="checkbox">
+									<input type="checkbox" id="isSelfBooking" checked>
+									<label for="isSelfBooking"> HIện hóa đợn tự đặt</label>
+								</div>
+								<br>
+							</div>
+							<div class="m-r m-b pull-right">
+								<button class="btn btn-primary" data-toggle="modal" data-target="#createSelfBooking"><i class="fa fa-plus"></i> Tạo đặt xe</button>
+							</div>
+						</div>
+						<table id="bookingTable" class="table table-stripped table-bordered table-hover" width="100%"></table>
+					</div>
+				</div>
+			</div>
+
+			<div id="tab-comment" class="tab-pane">
+				<div class="panel-body">
+					<div class="ibox ibox-content float-e-margins">
+						@if (Model.NumOfComment > 0)
+						{
+							<h2 class="col-md-12 section-header"><b>@(Model.NumOfComment) đánh giá</b> · <span class="rating" data-rating="@Model.Star"></span></h2>
+							<div class="col-md-12"><hr /></div>
+							<div class="col-md-12">
+								<div id="commentContainer"></div>
+								<div class="text-center" id="commentPaginator"></div>
+							</div>
+						}
+						else
+						{
+							<h2 class="col-md-12 section-header"><b>Đánh giá</b></h2>
+							<h3 class="col-md-12">Xe này vẫn chưa có đánh giá.</h3>
+						}
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</div>
+
+<div id="bigCarousel">
+	<div id="bigCarouselDisplay"></div>
+	<!-- Controls -->
+	<a class="left carousel-control">
+		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+		<span class="sr-only">Previous</span>
+	</a>
+	<a class="right carousel-control">
+		<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+		<span class="sr-only">Next</span>
+	</a>
+	<i class="fa fa-times"></i>
+</div>
+
+<div id="deleteConfirmModel" class="modal fade" role="dialog">
+<div class="modal-dialog">
+<div class="modal-content">
+	<div class="modal-header red-bg">
+		<button type="button" class="close" data-dismiss="modal">&times;</button>
+		<h4 class="modal-title" style="color:white">Xóa xe @Html.DisplayFor(q => q.Name)</h4>
+	</div>
+	<div class="modal-body form-horizontal">
+		<p>Bạn có chắc chắn muốn xóa xe này?</p>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
+		<button id="deleteVehicleBtn" type="button" class="btn btn-danger">Xóa</button> 
+	</div>
+</div>
+</div>
+</div>
+
+<!-- ----------------------Model of booking management---------------------------- -->
+
+<div id="detailBooking" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Thông tin đặt xe</h4>
+			</div>
+			<div class="modal-body">
+				<div class="ibox">
+					<div class="ibox-title">Thông tin khách hàng</div>
+					<div class="ibox-content">
+						<div class="row">
+							<div class="col-md-2 text-right">
+								<label>Tên khách hàng</label>
+							</div>
+							<div id="customerName" class="col-md-4 text-center"></div>
+
+							<div class="col-md-2 text-right">
+								<label>Email liên hệ</label>
+							</div>
+							<div id="customerEmail" class="col-md-4 text-center"></div>
+							<div class="col-md-offset-6 col-md-2 text-right">
+								<label>Số điện thoại</label>
+							</div>
+							<div id="customerPhone" class="col-md-4 text-center"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="ibox">
+					<div class="ibox-title">Thông tin xe cho thuê</div>
+					<div class="ibox-content">
+						<div class="row">
+							<div class="col-md-2 text-right">
+								<label>Tên xe</label>
+							</div>
+							<div id="vehicleName" class="col-md-4 text-center"></div>
+
+							<div class="col-md-2 text-right">
+								<label>Biển số xe</label>
+							</div>
+							<div id="licenseNumber" class="col-md-4 text-center"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="ibox">
+					<div class="ibox-title">Nội dung đặt xe chi tiết</div>
+					<div class="ibox-content">
+						<div class="row">
+							<div class="col-md-2 text-right">
+								<label>Giá cho thuê</label>
+							</div>
+							<div id="rentalPrice" class="col-md-4 text-center"></div>
+
+							<div class="col-md-2 text-right">
+								<label>Thời gian thuê</label>
+							</div>
+							<div class="col-md-4 text-center">
+								Từ <span id="startTime"></span>
+								<br>
+								Đến <span id="endTime"></span>
+							</div>
+							<div class="col-md-2 text-right">
+								<label>Tiền đặt cọc</label>
+							</div>
+							<div id="deposit" class="col-md-4 text-center"></div>
+
+							<div class="col-md-6">
+								<div class="row m-t">
+									<div class="col-md-6">
+										<label>Đánh giá và nhận xét</label>
+									</div>
+									<div class="col-md-6">
+										<span id="rating"></span>
+									</div>
+									<div class="col-md-offset-1 col-md-10">
+										<p id="comment"></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="createSelfBooking" class="modal fade" role="dialog" >
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content" style="margin-top: 10em;">
+			<div class="modal-header green-bg">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Tạo đặt xe</h4>
+			</div>
+			<div class="modal-body" >
+				<div style="width: 100%;height: 2em;">
+					<b>
+						<div class="pull-left">Từ</div>
+						<div style="margin-left: 290px;position: relative;" >Đến</div>
+					</b>
+				</div>
+				<div class="input-group">
+					<input type="text" class="form-control" id="startTimeInput" readonly />
+					<span class="input-group-addon"><i class="fa fa-arrow-right"></i></span>
+					<input type="text" class="form-control" id="endTimeInput" readonly />
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+				<button id="createSelfBookingBtn" class="btn btn-primary" type="button">Tạo</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="cancelBooking" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header red-bg">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Hủy đặt xe</h4>
+			</div>
+			<div class="modal-body">
+				<input type="hidden" id="br-id" />
+				Bạn có chắc chắn hủy đặt xe <span id="vehicle-name"></span> trong khoảng từ <span id="start-time"></span> đến <span id="end-time"></span> không?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+				<button id="btnCancelBooking" class="btn btn-danger" type="button">Đồng ý</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+@{ BundleTable.Bundles.Add(new StyleBundle("~/Styles/VehicleDetail")
+	.Include("~/Content/awesome-bootstrap-checkbox.css",
+		"~/Content/bootstrap-datetimepicker/bootstrap-datetimepicker.css",
+		"~/Content/DataTables/css/dataTables.bootstrap.css",
+		"~/Scripts/dropzone/dropzone.css",
+		"~/Scripts/dropzone/basic.css",
+		"~/Content/select2/select2.css",
+		"~/Content/pageStyle/VehicleDetail.css"));
+}
+@section Styles {
+	@Styles.Render("~/Styles/VehicleDetail")
+}
+@{ BundleTable.Bundles.Add(new ScriptBundle("~/Scripts/VehicleDetail")
+	.Include("~/Scripts/bootstrap-datetimepicker/bootstrap-datetimepicker.js",
+		"~/Scripts/DataTables/jquery.dataTables.js",
+		"~/Scripts/DataTables/dataTables.bootstrap.js",
+		"~/Scripts/dropzone/dropzone.js",
+		"~/Scripts/select2/select2.full.js",
+		"~/Scripts/twbsPagination/jquery.twbsPagination.js",
+		"~/Scripts/utils/generateUIElements.js",
+		"~/Scripts/pageScript/VehicleDetail.js"));
+}
+@section Scripts {
+	<script type="text/javascript">
+		const MIN_YEAR = @Constants.MIN_YEAR
+			, MAX_YEAR = new Date().getFullYear();
+
+		const COMMENT_FETCHING_URL = '@Url.RouteUrl("GetCommentAPI", new { controller = "Home", vehicleID = @Model.ID })',
+			BOOKING_FETCHING_URL = '@Url.RouteUrl("GetBookingListAPI", new { controller = "BookingManagement" })';
+
+		const VEHICLE_ID = "@Model.ID",
+			NUM_OF_COMMENT = @Model.NumOfComment,
+			NUM_OF_COMMENT_PER_PAGE = @Constants.NUM_OF_COMMENT_PER_PAGE;
+
+		let imageList = @Html.Raw(System.Web.Helpers.Json.Encode(Model.ImageList));
+	</script>
+
+	@Scripts.Render("~/Scripts/VehicleDetail")
+	@Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,99 @@
+﻿@using Microsoft.AspNet.Identity
+@{ 
+	var claims = ((System.Security.Claims.ClaimsIdentity)User.Identity).Claims;
+	var claim = claims.SingleOrDefault(m => m.Type == "UserAvatar");
+	var avatar = claim.Value;
+}
+<nav class="navbar-default navbar-static-side" role="navigation">
+	<div class="sidebar-collapse">
+		<ul class="nav metismenu" id="side-menu">
+			<li class="nav-header">
+				<div class="dropdown profile-element text-center">
+					@if (avatar != "")
+					{
+						<a href="@Url.Action("Index", "Manage")"><h1><img height="128" width="128" class="img-circle" src="@avatar" style="margin-top: -40px;" /></h1></a>
+					}
+					else
+					{
+						<a href="@Url.Action("Index", "Manage")"><h1><i class="img-circle fa fa-user-circle" style="font-size: 125px; margin-top: -40px;" ></i></h1></a>
+					}
+
+				</div>
+			</li>
+			@if (User.IsInRole("Admin"))
+			{
+				<li>
+					<a href="@Url.Action("AdminDashboard", "Dashboard")">
+						<i class="fa fa-th-large"></i>
+						<span class="nav-label">Trang quản trị</span>
+					</a>
+				</li>
+			}
+			else if (User.IsInRole("Provider"))
+			{
+				<li>
+					<a href="@Url.Action("Dashboard", "Dashboard")">
+						<i class="fa fa-th-large"></i>
+						<span class="nav-label">Trang quản lý chung</span>
+					</a>
+				</li>
+			}
+			
+			@if (User.IsInRole("Admin"))
+			{
+			<li>
+				<a href="@Url.Action("UserManagement", "UserManagement")">
+					<i class="fa fa-th-large"></i>
+					<span class="nav-label">Quản lý người dùng</span>
+				</a>
+			</li>
+			}
+			@if (User.IsInRole("Provider"))
+            {
+			<li>
+				<a href="@Url.Action("GarageManagement", "GarageManagement")">
+					<i class="fa fa-th-large"></i>
+					<span class="nav-label">Quản lý garage</span>
+				</a>
+			</li>
+			<li>
+				<a href="@Url.Action("VehicleManagement", "VehicleManagement")" style="margin-left: 20px;">
+					<i class="fa fa-th-large"></i>
+					<span class="nav-label">Quản lý xe</span>
+				</a>
+			</li>
+			<li>
+				<a href="@Url.Action("BookingManagement", "BookingManagement")" style="margin-left: 20px;">
+					<i class="fa fa-th-large"></i>
+					<span class="nav-label">Quản lý đặt xe</span>
+				</a>
+			</li>
+			<li>
+				<a href="@Url.Action("VehicleGroupManagement", "VehicleGroupManagement")">
+					<i class="fa fa-th-large"></i>
+					<span class="nav-label">Quản lý nhóm giá</span>
+				</a>
+			</li>
+            }
+			@if (User.IsInRole("Customer"))
+			{
+			<li>
+				<a href="@Url.Action("BookingHistory", "Booking")">
+					<i class="fa fa-th-large"></i>
+					<span class="nav-label">Lịch sử đặt xe</span>
+				</a>
+			</li>
+				<li>
+					<a href="@Url.RouteUrl("BecomeProvider")">
+						<i class="fa fa-th-large"></i>
+                        @if (!User.IsInRole("Provider")) {
+						    <span class="nav-label">Trở thành nhà cung cấp</span>
+                        } else {
+                            <span class="nav-label">Gia hạn quyền cung cấp</span>
+                        }
+					</a>
+				</li>
+			}
+		</ul>
+	</div>
+</nav>

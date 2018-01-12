@@ -1,0 +1,66 @@
+.dz-default.dz-message {
+	border: 1px solid #CCC;
+	padding: 3em 0; 
+	margin: 0;
+}
+
+.select2-dropdown {
+    z-index: 10060 !important; /*1051;*/
+}
+
+/* Color selector in create new vehicle */
+.color-selector {
+	display: inline-block;
+	margin: 2px;
+	position: relative;
+	width: 50px;
+}
+
+.color-selector input {
+	opacity: 0;
+	position: absolute;
+}
+
+.color-selector label {
+	border: 3px solid #a8a8a8;
+	border-radius: 10px;
+	cursor: pointer;
+	display: block;
+	padding-top: calc(100% - 6px);
+	position: relative;
+}
+
+.color-selector label::after {
+	display: inline-block;
+	font-size: 30px;
+	left: 17%;
+	position: absolute;
+	top: 0;
+}
+
+.color-selector input[type="radio"]:checked + label::after {
+	color: #fff;
+	content: "\f00c";
+	font-family: "FontAwesome";
+}
+.color-selector input#colorWhite[type="radio"]:checked + label::after {
+	color: #000;
+}
+
+.color-selector.another-color input[type="radio"] + label::after {
+	color: #000;
+	content: "Màu Khác";
+	font-size: 14px;
+	left: 6%;
+	line-height: 100%;
+	text-align: center;
+	top: 15%;
+}
+.color-selector.another-color input[type="radio"]:checked + label::after {
+	content: "\f00c";
+	font-family: "FontAwesome";
+	font-size: 30px;
+	line-height: 140%;
+	left: 17%;
+	top: 0;
+}

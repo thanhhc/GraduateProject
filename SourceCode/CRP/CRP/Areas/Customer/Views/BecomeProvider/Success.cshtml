@@ -1,0 +1,43 @@
+﻿@using System.Globalization
+@using System.Threading.Tasks
+@model CRP.Models.Entities.AspNetUser
+@{
+	ViewBag.Title = "Information of Provider";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="wrapper-content receipt-box col-xs-offset-2 col-xs-8 text-center">
+	<div style="font-size: 3em;font-weight:bold;text-shadow: 1px 1px 10px black;margin: 0.5em 0 1em;">Đăng ký dịch vụ thành công!</div>
+	<div style="font-size: 1.5em;margin-bottom: 1em;">Tài khoản của bạn đã được cấp quyền nhà cung cấp.<br>
+	Dịch vụ của bạn kéo dài đến ngày @Model.IsProviderUntil.Value.ToString("yyyy/MM/dd")</div>
+	<div style="font-size: 1.1em;margin-bottom: 1em;">Xin vui lòng đăng nhập lại để hoàn tất việc đăng ký.</div>
+	@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+	{
+		@Html.AntiForgeryToken()
+
+		<a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-primary"><i class="fa fa-sign-out"></i> Đăng nhập lại</a>
+	}
+	<div style="font-size: 1.1em;margin:1em 0 1em;">Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi.</div>
+</div>
+
+@section PageStyle {
+	<style type="text/css">
+		body{
+			background-attachment: fixed;
+			background-image: url('/Content/img/backgrounds/1.jpg');
+			background-position: right top;
+			background-size: cover;
+			background-repeat: no-repeat;
+		}
+
+		.receipt-box {
+			background-color: hsla(123, 43%, 39%, .8);
+			border-radius: 20px;
+			color:white;
+			font-size: 1.3em;
+			font-weight:bold;
+			padding: 1em;
+			margin-bottom: 8em;
+			margin-top: 5em;
+		}
+	</style>
+}

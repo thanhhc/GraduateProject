@@ -1,0 +1,69 @@
+﻿@model CRP.Models.RegisterViewModel
+@{
+	ViewBag.Title = "Register";
+}
+<div class="middle-box text-center loginscreen animated fadeInDown">
+	<div style="background-color: hsla(122,43%,20%,.9); margin: 5em 0 10em 0; padding: 2em;">
+		<p style="color:white; font-size: 2em;">Đăng ký</p>
+
+		@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+		{
+			@Html.AntiForgeryToken()
+			<div>
+				<div class="form-group ">
+					@Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username", @id = "username" })
+					@Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-warning" })
+				</div>
+				<div class="form-group ">
+					@Html.TextBoxFor(m => m.Fullname, new { @class = "form-control", placeholder = "Tên đầy đủ" })
+					@Html.ValidationMessageFor(m => m.Fullname, "", new { @class = "text-warning" })
+				</div>
+				<div class="form-group ">
+					@Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
+					@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-warning" })
+				</div>
+				<div class="form-group ">
+	   
+					@Html.TextBoxFor(m => m.ConfirmEmail, new { @class = "form-control", placeholder = "Xác nhận Email" })
+					@Html.ValidationMessageFor(m => m.ConfirmEmail, "", new { @class = "text-warning" })
+				</div>
+				<div class="form-group ">
+
+					@Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Mật khẩu" })
+					@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-warning" })
+				</div>
+				<div class="form-group ">
+	
+					@Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Xác nhận mật khẩu" })
+					@Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-warning" })
+				</div>
+				<div class="form-group ">
+					@Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", placeholder = "Số điện thoại" })
+					@Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-warning" })
+				</div>
+				<button type="submit" class="btn btn-primary block full-width m-b" style="color:white">Đăng ký</button>
+
+				<p class="text-muted text-center" style="color:white"><small>Bạn đã tài khoản?</small></p>
+				@Html.ActionLink("Đăng nhập", "Login", "Account", new { @class = "btn btn-sm btn-white btn-block" })
+			</div>
+	   }
+
+	</div>
+</div>
+
+@section PageStyle {
+	<style>
+		body{
+			background-attachment: fixed;
+			background-image: url('/Content/img/backgrounds/1.jpg');
+			background-position: right top;
+			background-size: cover;
+			background-repeat: no-repeat;
+		}
+	</style>
+}
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}
+

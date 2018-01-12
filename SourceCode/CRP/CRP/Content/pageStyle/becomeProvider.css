@@ -1,0 +1,99 @@
+#wrapper {
+	min-height: 100%;
+	position: relative;
+	background: #4CAF50 linear-gradient(0deg, #388E3C, #4CAF50);
+}
+
+.wrapper-content {
+	padding: 5em 10vw 5em;
+}
+
+#description {
+	font-size: 4em;
+	color: white;
+	padding-bottom: 1em;
+}
+#subDescription {
+	font-size: 0.4em;
+}
+
+.subcription-plan {
+	box-shadow: 0 0 10px 0 hsla(0, 100%, 30%, .5);
+	border-radius: 15px 15px 10px 10px;
+	max-width: 40em;
+	transition-duration: .5s;
+}
+.subcription-plan:hover, .subcription-plan.active {
+	box-shadow: 0 0 40px 5px hsla(0, 100%, 100%, .9);
+}
+
+.plan-header {
+	border-radius: 15px 15px 0 0;
+	color: white;
+	font-size: 2.5em;
+	font-weight: bold;
+	padding: 0.8em 0;
+}
+
+.plan-body {
+	background-color: #FFFFFF;
+	border: white solid;
+	border-radius: 0 0 10px 10px;
+	border-width: 0 1px 1px 1px;
+	padding: 2em;
+}
+.plan-body .btn {
+	color: white;
+	width: 15em;
+}
+
+.price-param {
+	font-size: 2em;
+	padding: 1em 0;
+}
+
+.price {
+	display: inline-block;
+	font-size: 2em;
+}
+
+.one-month .plan-header {
+	background-color: #1ab394;
+}
+.one-month .btn {
+	background-color: #1ab394;
+}
+.one-month .btn:hover {
+	background-color: #21DDB4;
+}
+
+.three-month .plan-header {
+	background-color: #1a7bb9;
+}
+.three-month .btn {
+	background-color: #1a7bb9;
+}
+.three-month .btn:hover {
+	background-color: #1F95DF;
+}
+
+.six-month .plan-header {
+	background-color: #273a4a;
+}
+.six-month .btn {
+	background-color: #273a4a;
+}
+.six-month .btn:hover {
+	background-color: #39546A	;
+}
+
+/* ==================== */
+/* NganLuong section */
+.payment {
+	display: none;
+	margin-top: 4em;
+}
+
+.payment.active {
+	display: block;
+}

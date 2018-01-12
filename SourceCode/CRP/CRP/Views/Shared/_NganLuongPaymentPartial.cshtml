@@ -1,0 +1,127 @@
+﻿@model CRP.Models.ViewModels.NganLuongPaymentModel
+
+@Html.HiddenFor(model => model.OrderCode)
+<div class="ibox">
+	<div class="ibox-title">
+		<h2>Phương thức thanh toán</h2>
+	</div>
+	<div class="ibox-content">
+		<div class="row">
+			<div class="col-md-4">
+				<label>@Html.RadioButtonFor(m => m.PaymentMethod, "ATM_ONLINE", new { @checked = "checked" }) Thanh toán online bằng thẻ ngân hàng nội địa</label>
+				<label>@Html.RadioButtonFor(m => m.PaymentMethod, "VISA") Thanh toán bằng thẻ tín dụng / ghi nợ</label>
+				<label>@Html.RadioButtonFor(m => m.PaymentMethod, "NL") Thanh toán bằng Ví điện tử NgânLượng</label>
+			</div>
+			<div class="col-md-8">
+				<div id="ATM_ONLINE_Detail" class="payment-type-detail active">
+					<p><span style="color:#ff5a00;font-weight:bold;text-decoration:underline;">Lưu ý</span>: Bạn cần đăng ký Internet-Banking hoặc dịch vụ thanh toán trực tuyến tại ngân hàng trước khi thực hiện.</p>
+					<label for="bankVCB" class="bank-radio">
+						<i class="VCB" title="Ngân hàng TMCP Ngoại Thương Việt Nam"></i>
+						@Html.RadioButtonFor(m => m.BankCode, "VCB", new { id = "bankVCB", @checked = "checked" })
+					</label>
+					<label for="bankDAB" class="bank-radio">
+						<i class="DAB" title="Ngân hàng TMCP Ngoại Thương Việt Nam"></i>
+						@Html.RadioButtonFor(m => m.BankCode, "DAB", new { id = "bankDAB" })
+					</label>
+					<label for="bankTCB" class="bank-radio">
+						<i class="TCB" title="Ngân hàng TMCP Ngoại Thương Việt Nam"></i>
+						@Html.RadioButtonFor(m => m.BankCode, "TCB", new { id = "bankTCB" })
+					</label>
+					<label for="bankMB" class="bank-radio">
+						<i class="MB" title="Ngân hàng Quân Đội"></i>
+						@Html.RadioButtonFor(m => m.BankCode, "MB", new { id = "bankMB" })
+					</label>
+					<label for="bankSHB" class="bank-radio">
+						<i class="SHB" title="Ngân hàng Sài Gòn - Hà Nội"></i>
+						@Html.RadioButtonFor(m => m.BankCode, "SHB", new { id = "bankSHB" })
+					</label>
+					<label for="bankVIB" class="bank-radio">
+						<i class="VIB" title="Ngân hàng Quốc tế"></i>
+						@Html.RadioButtonFor(m => m.BankCode, "VIB", new { id = "bankVIB" })
+					</label>
+					<label for="bankICB" class="bank-radio">
+						<i class="ICB" title="Ngân hàng Công Thương Việt Nam"></i>
+						@Html.RadioButtonFor(m => m.BankCode, "ICB", new { id = "bankICB" })
+					</label>
+					<label for="bankEXB" class="bank-radio">
+						<i class="EXB" title="Ngân hàng Xuất Nhập Khẩu"></i>
+						@Html.RadioButtonFor(m => m.BankCode, "EXB", new { id = "bankEXB" })
+					</label>
+					<label for="bankACB" class="bank-radio">
+						<i class="ACB" title="Ngân hàng Á Châu"></i>
+						@Html.RadioButtonFor(m => m.BankCode, "ACB", new { id = "bankACB" })
+					</label>
+					<label for="bankHDB" class="bank-radio">
+						<i class="HDB" title="Ngân hàng Phát triển Nhà TPHCM"></i>
+						@Html.RadioButtonFor(m => m.BankCode, "HDB", new { id = "bankHDB" })
+					</label>
+					<label for="bankMSB" class="bank-radio">
+						<i class="MSB" title="Ngân hàng Hàng Hải"></i>
+						@Html.RadioButtonFor(m => m.BankCode, "MSB", new { id = "bankMSB" })
+					</label>
+					<label for="bankNVB" class="bank-radio">
+						<i class="NVB" title="Ngân hàng Nam Việt"></i>
+						@Html.RadioButtonFor(m => m.BankCode, "NVB", new { id = "bankNVB" })
+					</label>
+					<label for="bankVAB" class="bank-radio">
+						<i class="VAB" title="Ngân hàng Việt Á"></i>
+						@Html.RadioButtonFor(m => m.BankCode, "VAB", new { id = "bankVAB" })
+					</label>
+					<label for="bankVPB" class="bank-radio">
+						<i class="VPB" title="Ngân Hàng Việt Nam Thịnh Vượng"></i>
+						@Html.RadioButtonFor(m => m.BankCode, "VPB", new { id = "bankVPB" })
+					</label>
+					<label for="bankSCB" class="bank-radio">
+						<i class="SCB" title="Ngân hàng Sài Gòn Thương tín"></i>
+						@Html.RadioButtonFor(m => m.BankCode, "SCB", new { id = "bankSCB" })
+					</label>
+					<label for="bankOJB" class="bank-radio">
+						<i class="OJB" title="Ngân hàng Đại Dương"></i>
+						@Html.RadioButtonFor(m => m.BankCode, "OJB", new { id = "bankOJB" })
+					</label>
+					<label for="bankPGB" class="bank-radio">
+						<i class="PGB" title="Ngân hàng Xăng dầu Petrolimex"></i>
+						@Html.RadioButtonFor(m => m.BankCode, "PGB", new { id = "bankPGB" })
+					</label>
+					<label for="bankGPB" class="bank-radio">
+						<i class="GPB" title="Ngân hàng TMCP Dầu khí Toàn Cầu"></i>
+						@Html.RadioButtonFor(m => m.BankCode, "GPB", new { id = "bankGPB" })
+					</label>
+					<label for="bankAGB" class="bank-radio">
+						<i class="AGB" title="Ngân hàng Nông nghiệp &amp; Phát triển nông thôn"></i>
+						@Html.RadioButtonFor(m => m.BankCode, "AGB", new { id = "bankAGB" })
+					</label>
+					<label for="bankSGB" class="bank-radio">
+						<i class="SGB" title="Ngân hàng Sài Gòn Công Thương"></i>
+						@Html.RadioButtonFor(m => m.BankCode, "SGB", new { id = "bankSGB" })
+					</label>
+					<label for="bankNAB" class="bank-radio">
+						<i class="NAB" title="Ngân hàng Nam Á"></i>
+						@Html.RadioButtonFor(m => m.BankCode, "NAB", new { id = "bankNAB" })
+					</label>
+					<label for="bankBAB" class="bank-radio">
+						<i class="BAB" title="Ngân hàng Bắc Á"></i>
+						@Html.RadioButtonFor(m => m.BankCode, "BAB", new { id = "bankBAB" })
+					</label>
+				</div>
+				<div id="VISA_Detail" class="payment-type-detail">
+					<span class="pull-right">
+						<i class="VISA" style="display: inline-block;"></i>
+						<i class="MASTE" style="display: inline-block;"></i>
+						<i class="JCB" style="display: inline-block;"></i>
+					</span>
+					<span style="font-size: 1.2em;">Thanh toán bằng thẻ tín dụng / ghi nợ quốc tế</span>
+				</div>
+				<div id="NL_Detail" class="payment-type-detail">
+					<p style="font-size: 1.2em;">Miễn phí phí giao dịch. Đăng ký ví NgânLượng.vn miễn phí <a href="https://www.nganluong.vn/?portal=nganluong&amp;page=user_register" target="_blank">tại đây</a></p>
+				</div>
+			</div>
+			<div class="col-md-12 text-right">
+				<div class="btn-group">
+					<button id="payBtn" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Thanh toán</button>
+					<button id="deleteBtn" class="btn btn-default">Hủy đơn hàng</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

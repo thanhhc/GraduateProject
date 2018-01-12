@@ -1,0 +1,130 @@
+﻿@using CRP.Models
+@model CRP.Models.Entities.BookingReceipt
+@{
+	ViewBag.Title = "Hóa đơn";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper-content">
+	<div class="row">
+		<div class="col-md-12 text-center" style="color:white;font-size: 3em;font-weight:bold;text-shadow: 1px 1px 10px black;margin: 1em;">Bạn đã đặt xe thành công!</div>
+
+		<div class="col-md-offset-1 col-md-7 animated fadeInLeft">
+			<div class="ibox">
+				<div class="ibox-title">
+					<h2>Thông tin xe và cửa hàng</h2>
+				</div>
+				<div class="ibox-content">
+					<div class="row" style="display: flex; height: 100%;">
+						<div class="col-md-3">
+							<div style="background: #fff url(@Model.Vehicle.VehicleImages.ToList()[0].URL) no-repeat; background-size: contain; height: 100%;"></div>
+						</div>
+
+						<div class="col-md-9">
+							<div class="section-header"><b>Thông tin xe:</b> @Model.Vehicle.Name</div>
+							<div class="row">
+								<div class="col-xs-5 col-xs-offset-1">
+									<p><b>Năm sản xuất: </b>@Model.Vehicle.Year</p>
+									<p><b>Số ghế: </b>@Model.Vehicle.VehicleModel.NumOfSeat</p>
+									<p><b>Số cửa: </b>@Model.Vehicle.VehicleModel.NumOfDoor</p>
+								</div>
+								<div class="col-xs-6">
+									@if (Model.Vehicle.FuelType != null)
+									{<p><b>Nhiên liệu: </b>@Constants.FUEL_TYPE[(int)Model.Vehicle.FuelType]</p>}
+									<p><b>Hộp số: </b>@Constants.TRANSMISSION_TYPE[Model.Vehicle.TransmissionType]</p>
+									@if (Model.TransmissionDetail != null)
+									{<p><b>Chi tiết hộp số: </b>@Model.TransmissionDetail</p>}
+									@if (Model.Engine != null)
+									{<p><b>Động cơ: </b>@Model.Engine</p>}
+								</div>
+							</div>
+							<hr>
+							<div class="section-header"><b>Thông tin cửa hàng:</b> @Model.GarageName</div>
+							<div class="row">
+								<div class="col-xs-5 col-xs-offset-1">
+									<p><b>Điện thoại:</b> +@(Model.GaragePhone)</p>
+									
+								</div>
+								<div class="col-xs-6">
+									<p><b>Email:</b> @Model.GarageEmail</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-11 col-xs-offset-1">
+									<p><b>Địa chỉ:</b> @Model.GarageAddress</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-3 animated fadeInRight">
+			<div class="ibox">
+				<div class="ibox-title">
+					<h2>Thông tin đặt xe</h2>
+				</div>
+				<div class="ibox-content">
+					<div class="row">
+						<div class="section-header col-md-12"><b>Thời gian đặt xe:</b></div>
+						<div class="col-xs-11 col-xs-offset-1">
+							<p><b>Từ:</b> @Model.StartTime.ToString(@"dd\/MM\/yyyy HH:mm")</p>
+							
+						</div>
+						<div class="col-xs-11 col-xs-offset-1">
+							<div><b>Đến:</b> @Model.EndTime.ToString(@"dd\/MM\/yyyy HH:mm")</div>
+						</div>
+					</div>
+					<hr>
+					<div class="row" style="font-size: 1.2em;">
+						<label class="col-md-7">Quãng đường</label>
+						<div class="col-md-5 text-right">@(Model.Distance != null ? Model.Distance + " km" : "Không giới hạn")</div>
+					</div>
+					<hr>
+					<div class="row" style="font-size: 1.2em;">
+						<label class="col-md-7">Phí thuê xe</label>
+						<div class="col-md-5 text-right">@(((int)Model.RentalPrice).ToString("#,##0"))₫</div>
+					</div>
+					<div class="row" style="font-size: 1.1em;">
+						<span class="col-md-7">Đặt cọc</span>
+						<div class="col-md-5 text-right">@(((int)Model.Deposit).ToString("#,##0"))₫</div>
+					</div>
+					<hr>
+					<div class="row" style="font-size: 1.2em;">
+						<label class="col-md-7">Phí dịch vụ</label>
+						<div class="col-md-5 text-right">@(((int)Model.BookingFee).ToString("#,##0"))₫</div>
+					</div>
+					<hr>
+					<div class="row" style="font-size: 1.3em;">
+						<label class="col-md-7">Phí đã thanh toán</label>
+						<div class="col-md-5 text-right">@(((int)Model.Deposit + Model.BookingFee).ToString("#,##0"))₫</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-12 text-center" style="color:white;font-weight:bold;text-shadow: 1px 1px 10px black;margin: 2em 0 5em;">
+			<div style="font-size: 1.5em;">Chúc bạn có một chuyến đi vui vẻ.</div>
+			<div style="font-size: 1.3em;">Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi!</div>
+			<a class="btn btn-primary" href="/"><i class="fa fa-toggle-left"></i> Quay trở về Homepage</a>
+		</div>
+	</div>
+</div>
+
+@section PageStyle {
+	<style type="text/css">
+		body{
+			background-attachment: fixed;
+			background-image: url('/Content/img/backgrounds/1.jpg');
+			background-position: right top;
+			background-size: cover;
+			background-repeat: no-repeat;
+		}
+
+		.section-header {
+			font-size: 1.4em;
+			margin-bottom: 0.7em;
+		}
+	</style>
+}

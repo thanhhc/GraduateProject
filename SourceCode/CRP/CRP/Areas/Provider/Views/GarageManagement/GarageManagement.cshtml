@@ -1,0 +1,177 @@
+﻿@model CRP.Models.ViewModels.GarageModel
+@{
+	ViewBag.Title = "Garage Management";
+	Layout = "~/Views/Shared/_ManagementLayout.cshtml";
+}
+<div class="row wrapper border-bottom white-bg page-heading">
+	<h2>Quản lý Garage</h2>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox ibox-content float-e-margins">
+        <div class="row">
+            <div class="pull-right m-r m-b">
+                <a class="btn btn-success" data-toggle="modal" data-target="#modal-form"><i class="fa fa-plus"></i> Tạo Garage mới</a>
+            </div>
+        </div>
+		<table class="table table-striped table-bordered table-hover " id="garages" width="100%"></table>
+	</div>
+</div>
+
+<style>
+    .select2-dropdown {
+        z-index: 10060 !important; /*1051;*/
+    }
+</style>
+<!-- ADd new garage-->
+<div id="modal-form" class="modal fade" aria-hidden="true" style="margin-top:10px">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="modal-header modal-header-popup">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Thêm một garage mới</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row m-b">
+                    <div class="col-md-12 input-group">
+                        <span class="input-group-addon"><i class="fa fa-building-o"></i></span>
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Tên garage", @id = "garageName" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="location">Địa điểm <span style="color: red">*</span></label>
+                            @Html.DropDownListFor(m => m.LocationID, Model.listLocation, new { @class = "form-control", @id= "locationID" })
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Địa chỉ <span style="color: red">*</span></label>
+                            @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @id= "gAddress" })
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email <span style="color: red">*</span></label>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @id = "gEmail" })
+                        </div>
+                        <div class="form-group">
+                            <label for="phone1">Số điện thoại (mặc định) <span style="color: red">*</span></label>
+                            @Html.TextBoxFor(m => m.Phone1, new { @class = "form-control", @id = "gPhone1" })
+                        </div>
+                        <div class="form-group">
+                            <label for="phone2">Số điện thoại (bổ sung)</label>
+                            @Html.TextBoxFor(m => m.Phone2, new { @class = "form-control", @id = "gPhone2" })
+                        </div>
+                        <div class="form-group">
+                            <label for="gDescription">Mô tả</label>
+                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @id = "gDescription", @rows="3" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <h3>Thời gian mở cửa</h3>
+                            <div class="input-group">
+                                <div class="input-group-addon gray-bg" style="min-width: 100px;">Chủ nhật</div>
+                                <div class="input-group-addon">Từ</div>
+                                <input type="text" data-mask="99:99" value="" class="work-start form-control">
+                                <div class="input-group-addon">Đến</div>
+                                <input type="text" data-mask="99:99" value="" class="work-end form-control">
+                                <div class="input-group-addon checkbox"><input type="checkbox" id="chk0" checked /><label for="chk0" style="margin-left: 12px;">Nghỉ</label></div>
+                            </div>
+                            <div class="input-group">
+                                <div class="input-group-addon gray-bg" style="min-width: 100px;">Thứ hai</div>
+                                <div class="input-group-addon">Từ</div>
+                                <input type="text" data-mask="99:99" value="08:00" class="work-start form-control">
+                                <div class="input-group-addon">Đến</div>
+                                <input type="text" data-mask="99:99" value="17:00" class="work-end form-control">
+                                <div class="input-group-addon checkbox"><input type="checkbox" id="chk1" /><label for="chk1" style="margin-left: 12px;">Nghỉ</label></div>
+                            </div>
+                            <div class="input-group">
+                                <div class="input-group-addon gray-bg" style="min-width: 100px;">Thứ ba</div>
+                                <div class="input-group-addon">Từ</div>
+                                <input type="text" data-mask="99:99" value="08:00" class="work-start form-control">
+                                <div class="input-group-addon">Đến</div>
+                                <input type="text" data-mask="99:99" value="17:00" class="work-end form-control">
+                                <div class="input-group-addon checkbox"><input type="checkbox" id="chk2" /><label for="chk2" style="margin-left: 12px;">Nghỉ</label></div>
+                            </div>
+                            <div class="input-group">
+                                <div class="input-group-addon gray-bg" style="min-width: 100px;">Thứ tư</div>
+                                <div class="input-group-addon">Từ</div>
+                                <input type="text" data-mask="99:99" value="08:00" class="work-start form-control">
+                                <div class="input-group-addon">Đến</div>
+                                <input type="text" data-mask="99:99" value="17:00" class="work-end form-control">
+                                <div class="input-group-addon checkbox"><input type="checkbox" id="chk3" /><label for="chk3" style="margin-left: 12px;">Nghỉ</label></div>
+                            </div>
+                            <div class="input-group">
+                                <div class="input-group-addon gray-bg" style="min-width: 100px;">Thứ năm</div>
+                                <div class="input-group-addon">Từ</div>
+                                <input type="text" data-mask="99:99" value="08:00" class="work-start form-control">
+                                <div class="input-group-addon">Đến</div>
+                                <input type="text" data-mask="99:99" value="17:00" class="work-end form-control">
+                                <div class="input-group-addon checkbox"><input type="checkbox" id="chk4" /><label for="chk4" style="margin-left: 12px;">Nghỉ</label></div>
+                            </div>
+                            <div class="input-group">
+                                <div class="input-group-addon gray-bg" style="min-width: 100px;">Thứ sáu</div>
+                                <div class="input-group-addon">Từ</div>
+                                <input type="text" data-mask="99:99" value="08:00" class="work-start form-control">
+                                <div class="input-group-addon">Đến</div>
+                                <input type="text" data-mask="99:99" value="17:00" class="work-end form-control">
+                                <div class="input-group-addon checkbox"><input type="checkbox" id="chk5" /><label for="chk5" style="margin-left: 12px;">Nghỉ</label></div>
+                            </div>
+                            <div class="input-group">
+                                <div class="input-group-addon gray-bg" style="min-width: 100px;">Thứ bảy</div>
+                                <div class="input-group-addon">Từ</div>
+                                <input type="text" data-mask="99:99" value="" class="work-start form-control">
+                                <div class="input-group-addon">Đến</div>
+                                <input type="text" data-mask="99:99" value="" class="work-end form-control">
+                                <div class="input-group-addon checkbox"><input type="checkbox" id="chk6" checked /><label for="chk6" style="margin-left: 12px;">Nghỉ</label></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="gPolicy">Điều khoản</label>
+                            @Html.TextAreaFor(m => m.Policy, new { @class = "form-control", @id = "gPolicy", @rows = "6" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button id="btnCreateGarage" class="btn btn-success" type="button">Tạo garage</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog"></div>
+
+<div class="modal fade" id="mdModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+@{ BundleTable.Bundles.Add(new StyleBundle("~/Styles/GarageList")
+     .Include("~/Content/awesome-bootstrap-checkbox.css",
+         "~/Content/DataTables/css/dataTables.bootstrap.css",
+         "~/Content/select2/select2.min.css",
+         "~/Content/jasny-bootstrap.min.css"));
+}
+@section Styles {
+	@Styles.Render("~/Styles/GarageList")
+}
+@section PageStyle {
+	@Styles.Render("~/Content/pageStyle/garageList.css")
+}
+
+@{ BundleTable.Bundles.Add(new ScriptBundle("~/Scripts/GarageList")
+      .Include("~/Scripts/select2/select2.full.min.js",
+        "~/Scripts/DataTables/jquery.dataTables.js",
+        "~/Scripts/DataTables/dataTables.bootstrap.js",
+        "~/Scripts/jasny-bootstrap.min.js",
+        "~/Scripts/utils/generateUIElements.js",
+        "~/Scripts/utils/customModals.js",
+        "~/Scripts/utils/generateCustomDataTablesFilters.js",
+        "~/Scripts/pageScript/garageManagement.js"));
+}
+@section Scripts {
+	@Scripts.Render("~/Scripts/GarageList")
+}
